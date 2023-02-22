@@ -10,11 +10,11 @@ static void check_map_components_map(t_window *window, char *str)
 	i = 0;
 	tmp = (char **)malloc(sizeof(char *) * window->map_row);
 	if (!tmp)
-		ft_put_error("Error\n");
+		ft_put_error("malloc Error\n");
 	while (i < window->map_row - 1)
 	{
 		tmp[i] = ft_strdup(window->map_char[i]);
-		free(window->worldmap[i++]);
+		free(window->map_char[i++]);
 	}
 	tmp[i] = ft_strdup(str);
 	if (window->map_row != 1)
@@ -28,7 +28,6 @@ static void	check_map_components_worldmap(t_window *window)
 	int		j;
 
 	i = -1;
-
 	window->worldmap = return_array(window->map_row, window->map_col);
 	while (++i < window->map_row)
 	{
@@ -41,14 +40,11 @@ static void	check_map_components_worldmap(t_window *window)
 	{
 		j = -1;
 		while (window->map_char[i][++j] != '\0')
-		if (ft_isdigit(window->map_char[i][j]))
-			window->worldmap[i][j] = window->map_char[i][j] - '0';
-		else
-			window->worldmap[i][j] = window->map_char[i][j];
-		
-		window->worldmap[i][j] = '\0';
+			if (ft_isdigit(window->map_char[i][j]))
+				window->worldmap[i][j] = window->map_char[i][j] - '0';
+			else
+				window->worldmap[i][j] = window->map_char[i][j];//공백이나 WNES받아서 저장	
 	}
-	window->worldmap[i][0] = '\0';
 }
 
 static void	check_map_components(t_window *window, int fd)
@@ -86,8 +82,7 @@ static void	check_map_components(t_window *window, int fd)
 static void	check_map_contents(t_window *window)
 {
 	/*TODO
-	1. 0, 1, 캐릭터 하나로 저장되어있는지 확인. 
-	2. BFS를 통해 1로 둘러싸여있는지 확인.
+	1. 0, 1, 캐릭터 하나로 저장되어있는지 확인.
 	*/
 	int		i;
 	int		j;
@@ -98,7 +93,7 @@ static void	check_map_contents(t_window *window)
 	while (++i < window->map_row)
 	{
 		j = -1;
-		while (++j < window->map_col && window->worldmap[i][j] != -1)
+		while (++j < window->map_col)
 		{
 			if (window->worldmap[i][j] == 1 || window->worldmap[i][j] == 0)
 				continue;
@@ -109,16 +104,15 @@ static void	check_map_contents(t_window *window)
 				window->direction = alphatodefnum(window->worldmap[i][j]);
 				flag = 1;
 			}
-			else if (window->worldmap[i][j] == ' ')
+			else if (window->worldmap[i][j] == ' ' || window->worldmap[i][j] == -1) 
 				continue;
 			else
-				ft_put_error("Error\n");
+			ft_put_error("Error\n");
 		}
 	}
-
 }
 
-void check_map(t_window *window, char *argv)
+int check_map(t_window *window, char *argv)
 {
 	int fd;
 	fd = fopen(argv[1] , O_RDONLY);
@@ -128,6 +122,7 @@ void check_map(t_window *window, char *argv)
 	check_map_contents(window);
 	check_map_walls(window);
 	
+	print_map_utils(window);
 	//TODO 
 	/*
 	1. map file open
@@ -164,5 +159,4 @@ void check_map(t_window *window, char *argv)
 	*/
 
 	//map
-
 }
