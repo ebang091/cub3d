@@ -11,3 +11,14 @@ void ft_clean(char** str, int n)
 	}
 	free(str);
 }
+
+void free_arr(int **arr, int row)
+{
+	int	i;
+
+	i = -1;
+	while (++i < row)
+		free(arr[i]);
+	free(arr);
+
+}

@@ -10,19 +10,19 @@ int check_map_components_utils(t_window *window, char *str)
 	i = -1;
 	while(str[++i] != '\0')
 	{
-		if (str[i] == 'w' || str[i] == 'W')
+		if (str[i] == 'w' || str[i] == 'W' && window->map_row == 0)
 			get_path(window, &str[i], WEST);
-		else if (str[i] == 's' || str[i] == 'S')
+		else if (str[i] == 's' || str[i] == 'S' && window->map_row == 0)
 			get_path(window, &str[i], SOUTH);
-		else if (str[i] == 'n' || str[i] == 'N')
+		else if (str[i] == 'n' || str[i] == 'N' && window->map_row == 0)
 			get_path(window, &str[i], NORTH);
-		else if (str[i] == 'e' || str[i] == 'E')
+		else if (str[i] == 'e' || str[i] == 'E' && window->map_row == 0)
 			get_path(window, &str[i], EAST);
-		else if (str[i] == 'F')
-			get_rgb(window, &str[i], F);
+		else if (str[i] == 'F' && window->map_row == 0)
+			get_rgb(window, &str[i], F && window->map_row == 0);
 		else if (str[i] == 'C')
 			get_rgb(window, &str[i], C);
-		else if(i == 0 && isdigit(str[i]))
+		else if(i == 0 && ft_isdigit(str[i]))
 		{
 			window->map_col = findmax(window->map_col, (int)ft_strlen(str));
 			window->map_row++;
@@ -101,7 +101,7 @@ void  get_rgb(t_window *window, char *str, int flag)
 	}
 }
 
-void create_visited(t_window *window)
+int create_visited(t_window *window)
 {
 	int		i;
 	
@@ -110,30 +110,37 @@ void create_visited(t_window *window)
 	while (++i < window->map_row)
 	{
 		window->visited[i] = (int*)malloc(sizeof(int)*window->map_col);
+		if (!window->visited[i])
+				return (1);
 		ft_memset(window->visited[i], 0, window->map_col);
 	}
+	return (0);
 }
 
 void	check_map_walls(t_window *window)
 {
-	//BFS로 구현하자. 
+	//1로 잘 둘러싸여 있는지 확인. BFS로 구현하자. 
 	//하니면 
 	int	i;
 	int	j;
 
 	i = -1;
-	create_visited(window);
+	if (create_visited(window))
+		ft_put_error("Error\n");
 	while (++i < window->map_row)
 	{
 		j = -1;
 		while(++j < window->map_col)
 		{
-			if(window->worldmap[i][j] == 1 && window->visited[i][j] == 0)
+			if(window->worldmap[i][j] == 0 && window->visited[i][j] == 0
+			|| is_direction(window->worldmap[y][x]) && window->visited[y][x] == 0)
 			{
-				//Q.push
-				//BFS();
+				queue_push(window, i, j);
+				if (BFS(window, i, j))
+					return(free_BFS(window));//남아있는 큐 비우고 끝내기. return 1
 			}
 		}
 	}
-	//free visited
+	free_arr(window->visited, window->map_row);
+	return(0);
 }

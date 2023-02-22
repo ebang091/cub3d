@@ -7,8 +7,8 @@ int check_arguments(char **argv)
 	//.cub으로 끝나는지 확인, error control : 오류 시 1 반환
 	int		i;
 
-	i = (int)ft_strlen(str);
-	if (ft_strncmp(str + i - 4, ".cub", 4) != 0)
+	i = (int)ft_strlen(argv[1]);
+	if (ft_strncmp(argv[1] + i - 4, ".cub", 4) != 0)
 		return (-1);
 	return (0);
 }

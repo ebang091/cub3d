@@ -89,10 +89,11 @@ t_image	*find_direction(t_window *window, int flag);
 int		*find_rgb(t_window *window, int flag, int i);
 int		findmax(int a, int b);
 int		alphatodefnum(char ch);
-char	**return_array(int row, int col);
+int	**return_array(int row, int col);
 
 //utils2
 void ft_clean(char** str, int n);
+void free_arr(int **arr, int row)
 
 //check map
 int		check_map(t_window *window, char *argv);
@@ -106,6 +107,8 @@ int		check_map_components_utils(t_window *window, char *str);
 void	check_map_walls(t_window *window);
 
 
-
+//BFS
+int		BFS(t_window *window, int starty, int startx);
+void	queue_push(t_window *window, int y, int x);
 
 #endif
