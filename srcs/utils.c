@@ -1,6 +1,14 @@
 
 #include "../include/cub3d.h"
-//전반적으로 save map에서 사용하는 함수들
+/*
+
+
+
+****전반적으로 save map에서 사용하는 함수들***
+
+
+
+*/
 
 //get_path에서 사용
 t_image	*find_direction(t_window *window, int flag)
@@ -14,7 +22,7 @@ t_image	*find_direction(t_window *window, int flag)
 	else if (flag == WEST)
 		return (&window->W_img);
 	else 
-		return (NULL);
+		return ((void *)ERROR);
 }
 
 //get_rgb에서 사용
@@ -61,25 +69,4 @@ int alphatodefnum(char ch)
 		return (EAST);
 	else 
 		return (1);
-}
-//surrounded_by_walls_bfs에서 visited 할당 시 사용
-int	**return_array(int row, int col)
-{
-	int		**tmp;
-	int		i;
-
-	i = -1;
-	tmp = (int **)malloc(sizeof(int*) * row);
-	if(!tmp)
-		return (ft_put_error("Error malloc\n"));
-	while (++i <= row)
-	{
-		tmp[i] = (int *)malloc(sizeof(int) * col);
-		if (!tmp[i])
-		{
-			ft_clean(tmp, i);
-			return (ft_put_error("Error\n"));			
-		}
-	}
-	return (tmp);
 }

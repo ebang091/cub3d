@@ -36,23 +36,27 @@
 100011
 111111
 */
-# define NORTH 2
-# define SOUTH 4
-# define WEST 8
-# define EAST 16
+# define NORTH 0
+# define SOUTH 1
+# define WEST 2
+# define EAST 3
 # define F	5
 # define C	6
 
+# define CHARACTER 9
 # define ERROR 1
 # define SUCCESS 0
+# define TRUE 1
+# define FALSE 0
 
 
 typedef struct s_image
 {
-	void	*img[4];
-	char 	*path[4];
-	int		x[4];
-	int		y[4];
+	//배열로 바꿀 예정.
+	void	*img;
+	char 	*path;
+	int		x;
+	int		y;
 	int		width;
 	int		height;
 }	t_image;
@@ -124,58 +128,31 @@ int		check_path_and_rgb(t_window *window, int fd);
 //check map shape
 int check_map_shape(t_window *window);
 
-int		is_directionnum(int c);
+
 
 //queue
+
 t_node *newnode(int y, int x);
 void queue_push(t_window *window, int y, int x);
 t_node *queue_pop(t_window *window);
 
+//BFS
 
-/*
-
-이 아래로는 
-
-아직
-
-정리 안된 함수들 
-
-*/
-
-t_image	*find_direction(t_window *window, int flag);
-int		*find_rgb(t_window *window, int flag, int i);
-
-//map_shape
-
-
-int		alphatodefnum(char ch);
-int		**return_array(int row, int col);
-
-//utils2
+int		check_surrounded_by_walls_bfs(t_window *window);
 void 	ft_clean(int** tab, int n);
 void 	free_arr(int **arr, int row);
 
+//utils
+t_image	*find_direction(t_window *window, int flag);
+int		*find_rgb(t_window *window, int flag, int i);
+int		alphatodefnum(char ch);
 int		findmax(int a, int b);
-//check map
-int		check_map(t_window *window, char *path);
-
-//check_path_and_rgb
-
-
-////check map utils2
-int		check_map_walls(t_window *window);
-void	print_map_utils(t_window *window);
-int		is_direction(int c);
 int		ft_isspace(char c);
-int		check_map_contents_count(t_window *window);
 
-//check map utils3
-int		Cango(t_window *window, int y, int x);
+//save_map, bfs에서 사용
+int is_directionnum(int n);
 
-
-//BFS
-int		bfs(t_window *window);
-void	queue_push(t_window *window, int y, int x);
-t_node	*queue_pop(t_window *window);
+//etc
+void	print_map_utils(t_window *window);
 
 #endif

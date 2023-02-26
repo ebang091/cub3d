@@ -2,10 +2,11 @@
 #include "../include/cub3d.h"
 
 void init_game(t_window *window);
+static int check_arguments(char **argv);
 
 int main(int argc, char **argv)
 {
-	t_window	*window;
+	t_window	window;
 	//달라진 점: 
 	//malloc error 시에는 exit_error로 출력 (출력 후 exit)
 	//그 외 에러 시에는 ft_put_Error로 출력 (출력 후 ERROR 반환) -> 계속 반환 받아 main에서 exit
@@ -52,7 +53,7 @@ int main(int argc, char **argv)
 	
 }
 
-int check_arguments(char **argv)
+static int check_arguments(char **argv)
 {
 	//.cub으로 끝나는지 확인, error control : 오류 시 1 반환
 	int		i;
@@ -69,23 +70,23 @@ void set_game(t_window *window)
 	window->win = NULL;
 	window->win_width = 640;
 	window->win_height = 480;
-	window->W_img.img = mlx_xpm_file_to_image(window->mlx,
-			window->W_img.path, &window->W_img.width,
-			&window->W_img.height);
-	window->S_img.img = mlx_xpm_file_to_image(window->mlx,
-			window->S_img.path, &window->S_img.width,
-			&window->S_img.height);
-	window->N_img.img = mlx_xpm_file_to_image(window->mlx,
-			window->N_img.path, &window->N_img.width,
-			&window->N_img.height);
-	window->E_img.img = mlx_xpm_file_to_image(window->mlx,
-			window->E_img.path, &window->E_img.width,
-			&window->E_img.height);
+	// window->W_img.img = mlx_xpm_file_to_image(window->mlx,
+	// 		window->W_img.path, &window->W_img.width,
+	// 		&window->W_img.height);
+	// window->S_img.img = mlx_xpm_file_to_image(window->mlx,
+	// 		window->S_img.path, &window->S_img.width,
+	// 		&window->S_img.height);
+	// window->N_img.img = mlx_xpm_file_to_image(window->mlx,
+	// 		window->N_img.path, &window->N_img.width,
+	// 		&window->N_img.height);
+	// window->E_img.img = mlx_xpm_file_to_image(window->mlx,
+	// 		window->E_img.path, &window->E_img.width,
+	// 		&window->E_img.height);
 }
 
 void init_game(t_window *window)
 {
-	window->exist_flag = 1;
+	window->exist_flag = 0;
 	window->pos_x = -1;
 	window->pos_y = -1;
 	window->map_col = 0;
