@@ -15,7 +15,7 @@ t_image	*find_direction(t_window *window, int flag)
 		return (NULL);
 }
 
-int	*find_rgb(t_window *window, int flag, int i)
+int	*(t_window *window, int flag, int i)
 {
 	printf("flag = %d cnt = %d", flag,  i);
 	if (flag == F && i == 0)

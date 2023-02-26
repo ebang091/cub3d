@@ -1,6 +1,56 @@
 
 #include "../include/cub3d.h"
 
+void init_game(t_window *window);
+
+int main(int argc, char **argv)
+{
+	t_window	*window;
+
+	if(argc != 2)	
+		ft_put_error("Error : argument\n");
+	window = (t_window *)malloc(sizeof(t_window));
+	if (!(window))
+		ft_put_error("Error : malloc\n");
+	if (check_arguments(argv))//.cub로 끝나는 지 확인
+		ft_put_error("Error : argument\n"); 
+	init_game(window); //window 구조체의 값 초기화 
+	if (save_map(window, argv[1])) //맵을 구조체에 저장, 맵이 유효한지 확인, 맵의 내용들 저장
+		ft_put_error("Error: map error\n");
+	if (check_map_shape(window))
+		ft_put_error("Error\n map shape");
+	
+	printf("check map done\n");
+	// set_game(window);
+	// window->win = mlx_new_window(window->mlx, window->win_width,
+						// window->win_height, "CUB_3D");
+	// floor_casting(window);
+
+	//world map free!
+
+	/*
+	t_map 의 구성요소
+	double posX = 22, posY = 12;  //x and y start position
+  	double dirX = -1, dirY = 0; //initial direction vector
+  	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
+
+	t_img W,S,N,E
+
+	1. 화면 생성
+	2. 이미지 불러오기, 저장
+	3. floor casting
+	4. wall casting
+
+	5. draw: 3,4에서 buffer에 저장한 걸 읽으면서 맞게 img를 그린다. 
+
+	6. key hook :
+
+	mlx_key_hook(window->win, &check_key, window);
+	mlx_hook(window->win, X_BUTTON, 0, &x_button, window);
+	mlx_loop(window->mlx);
+	*/
+	
+}
 
 int check_arguments(char **argv)
 {
@@ -12,69 +62,6 @@ int check_arguments(char **argv)
 		return (-1);
 	return (0);
 }
-
-
-// int floor_casting(t_window *window)
-// {
-
-// 	for(int y = 0; y < h; y++)
-//     {
-//       // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-//       float rayDirX0 = dirX - planeX;
-//       float rayDirY0 = dirY - planeY;
-//       float rayDirX1 = dirX + planeX;
-//       float rayDirY1 = dirY + planeY;
-
-//       // Current y position compared to the center of the screen (the horizon)
-//       int p = y - screenHeight / 2;
-
-//       // Vertical position of the camera.
-//       float posZ = 0.5 * screenHeight;
-
-//       // Horizontal distance from the camera to the floor for the current row.
-//       // 0.5 is the z position exactly in the middle between floor and ceiling.
-//       float rowDistance = posZ / p;
-
-//       // calculate the real world step vector we have to add for each x (parallel to camera plane)
-//       // adding step by step avoids multiplications with a weight in the inner loop
-//       float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / screenWidth;
-//       float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / screenWidth;
-
-//       // real world coordinates of the leftmost column. This will be updated as we step to the right.
-//       float floorX = posX + rowDistance * rayDirX0;
-//       float floorY = posY + rowDistance * rayDirY0;
-
-//       for(int x = 0; x < screenWidth; ++x)
-//       {
-//         // the cell coord is simply got from the integer parts of floorX and floorY
-//         int cellX = (int)(floorX);
-//         int cellY = (int)(floorY);
-
-//         // get the texture coordinate from the fractional part
-//         int tx = (int)(texWidth * (floorX - cellX)) & (texWidth - 1);
-//         int ty = (int)(texHeight * (floorY - cellY)) & (texHeight - 1);
-
-//         floorX += floorStepX;
-//         floorY += floorStepY;
-
-//         // choose texture and draw the pixel
-//         int floorTexture = 3;
-//         int ceilingTexture = 6;
-//         Uint32 color;
-
-//         // floor
-//         color = texture[floorTexture][texWidth * ty + tx];
-//         color = (color >> 1) & 8355711; // make a bit darker
-//         buffer[y][x] = color;
-
-//         //ceiling (symmetrical, at screenHeight - y - 1 instead of y)
-//         color = texture[ceilingTexture][texWidth * ty + tx];
-//         color = (color >> 1) & 8355711; // make a bit darker
-//         buffer[screenHeight - y - 1][x] = color;
-	
-//       }
-//     }
-// }
 
 void set_game(t_window *window)
 {
@@ -95,7 +82,6 @@ void set_game(t_window *window)
 			window->E_img.path, &window->E_img.width,
 			&window->E_img.height);
 }
-
 
 void init_game(t_window *window)
 {
@@ -120,61 +106,4 @@ void init_game(t_window *window)
 	window->character_count = 0;
 }
 
-int main(int argc, char **argv)
-{
-	t_window	*window;
 
-	if(argc != 2)	
-		ft_put_error("Error : argument\n");
-	window = (t_window *)malloc(sizeof(t_window));
-	if (!(window))
-		ft_put_error("Error : malloc\n");
-	if (check_arguments(argv))//.cub로 끝나는 지 확인
-		ft_put_error("Error : argument\n"); 
-	init_game(window); //window 구조체의 값 초기화 
-	if(check_map(window, argv[1])) //맵을 구조체에 저장, 맵이 유효한지 확인, 맵의 내용들 저장
-		ft_put_error("Error: map error\n");
-	printf("check map done\n");
-	// set_game(window);
-	// window->win = mlx_new_window(window->mlx, window->win_width,
-						// window->win_height, "CUB_3D");
-	// floor_casting(window);
-
-	//world map free!
-	
-
-
-	//TODO : libft 불러오기
-
-
-	/*
-	t_map 의 구성요소
-	double posX = 22, posY = 12;  //x and y start position
-  	double dirX = -1, dirY = 0; //initial direction vector
-  	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
-
-	t_img W,S,N,E
-
-	1. 화면 생성
-	2. 이미지 불러오기, 저장
-	3. floor casting
-	4. wall casting
-
-	5. draw: 3,4에서 buffer에 저장한 걸 읽으면서 맞게 img를 그린다. 
-
-	6. key hook :
-
-	mlx_key_hook(window->win, &check_key, window);
-	mlx_hook(window->win, X_BUTTON, 0, &x_button, window);
-	mlx_loop(window->mlx);
-
-
-		1.  WSAD 로 이동, 
-		2.  방향키 오른쪽 왼쪽으로 회전
-			-> cos, sin 사용되나? 
-		3.	esc , red cross button
-
-	
-	*/
-	
-}
