@@ -17,6 +17,7 @@
 # define KEY_PRESS 2
 # define X_BUTTON 17
 
+# define MAP 10
 # define KEY_ESC 53
 # define KEY_W 13
 # define KEY_A 0
@@ -85,27 +86,29 @@ typedef struct s_window
 //error_handle
 void	ft_put_error(char *str);
 
-//utils
+//save map
 
 t_image	*find_direction(t_window *window, int flag);
 int		*find_rgb(t_window *window, int flag, int i);
-int		findmax(int a, int b);
+
+//map_shape
+int		check_map_bfs(t_window *window);
+int		check_map_edge(t_window *window);
+
 int		alphatodefnum(char ch);
 int		**return_array(int row, int col);
 
 //utils2
 void 	ft_clean(int** tab, int n);
 void 	free_arr(int **arr, int row);
-int		free_BFS(t_window *window);
+int		free_bfs(t_window *window);
 
+int		findmax(int a, int b);
 //check map
 int		check_map(t_window *window, char *path);
-int		check_map_walls_edge(t_window *window);
 
-//check map utils
-int		get_path(t_window *window, char *path, int flag);
-int 	get_rgb(t_window *window, char *str, int flag);
-int		check_map_components_utils(t_window *window, char *str);
+//check_path_and_rgb
+
 
 ////check map utils2
 int		check_map_walls(t_window *window);
@@ -119,7 +122,7 @@ int		Cango(t_window *window, int y, int x);
 int		is_directionnum(int c);
 
 //BFS
-int		BFS(t_window *window);
+int		bfs(t_window *window);
 void	queue_push(t_window *window, int y, int x);
 t_node	*queue_pop(t_window *window);
 

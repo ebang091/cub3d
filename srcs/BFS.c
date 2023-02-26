@@ -57,7 +57,7 @@ void getdir(int *y, int *x, int flag)
 		*y += -1;
 }
 
-int BFS(t_window *window)
+int bfs(t_window *window)
 {
 	t_node	*ptr;
 	int		y;
@@ -74,6 +74,7 @@ int BFS(t_window *window)
 			x = ptr->x;
 			printf("now : %d %d\n", y,x);
 			getdir (&y, &x, i);
+			printf("next: %d %d\n", y, x);
 			if ((Cango(window, y, x) && ((window->worldmap[y][x] == 0 && window->visited[y][x] == 0)
 			 || (is_directionnum(window->worldmap[y][x]) && window->visited[y][x] == 0))))
 			{

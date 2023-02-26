@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map_utils3.c                                 :+:      :+:    :+:   */
+/*   map_shape.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 21:51:36 by eunjungbang       #+#    #+#             */
-/*   Updated: 2023/02/24 22:14:59 by eunjungbang      ###   ########.fr       */
+/*   Created: 2023/02/26 19:51:15 by eunjungbang       #+#    #+#             */
+/*   Updated: 2023/02/26 19:51:23 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../include/cub3d.h"
 
-int	Cango(t_window *window, int y, int x)
+int map_shape(t_window *window)
 {
-	if (0 <= y && y <= window->map_row && 0 <= x && x <= window->map_col)
-		return (1);
-	return (0);
-}
-
-int is_directionnum(int c)
-{
-	if (c == NORTH || c == SOUTH || c == WEST || c == EAST)
-		return (1);
-	return (0);
+	if (check_map_bfs(window))//벽으로 둘러싸여 있는지 확인 : 빈칸일 때 BFS를 수행해서 밖으로 나가지 않는가.
+		return(1);
+	if (check_map_edge(window))//벽 확인: 가장자리만 따로: -1 혹은 1로만 이루어져 있나.
+		return (1);// : 가장자리가 1또는 -1이면 ok
 }
