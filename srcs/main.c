@@ -6,21 +6,21 @@ void init_game(t_window *window);
 int main(int argc, char **argv)
 {
 	t_window	*window;
+	//달라진 점: 
+	//malloc error 시에는 exit_error로 출력 (출력 후 exit)
+	//그 외 에러 시에는 ft_put_Error로 출력 (출력 후 ERROR 반환) -> 계속 반환 받아 main에서 exit
 
-	if(argc != 2)	
-		ft_put_error("Error : argument\n");
-	window = (t_window *)malloc(sizeof(t_window));
-	if (!(window))
-		ft_put_error("Error : malloc\n");
+	if (argc != 2)
+		return (ft_put_error("Error\nargument\n"));
 	if (check_arguments(argv))//.cub로 끝나는 지 확인
-		ft_put_error("Error : argument\n"); 
-	init_game(window); //window 구조체의 값 초기화 
-	if (save_map(window, argv[1])) //맵을 구조체에 저장, 맵이 유효한지 확인, 맵의 내용들 저장
-		ft_put_error("Error: map error\n");
-	if (check_map_shape(window))
-		ft_put_error("Error\n map shape");
-	
+		return (ft_put_error("Error\nargument\n")); 
+	init_game(&window); //window 구조체의 값 초기화 
+	if (save_map(&window, argv[1]) == ERROR) //맵을 구조체에 저장, 맵이 유효한지 확인, 맵의 내용들 저장
+		exit (ERROR);
+	if (check_map_shape(&window) == ERROR)
+		exit (ERROR);
 	printf("check map done\n");
+
 	// set_game(window);
 	// window->win = mlx_new_window(window->mlx, window->win_width,
 						// window->win_height, "CUB_3D");

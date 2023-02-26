@@ -1,6 +1,8 @@
 
 #include "../include/cub3d.h"
+//전반적으로 save map에서 사용하는 함수들
 
+//get_path에서 사용
 t_image	*find_direction(t_window *window, int flag)
 {
 	if (flag == NORTH)
@@ -15,7 +17,8 @@ t_image	*find_direction(t_window *window, int flag)
 		return (NULL);
 }
 
-int	*(t_window *window, int flag, int i)
+//get_rgb에서 사용
+int	*find_rgb(t_window *window, int flag, int i)
 {
 	printf("flag = %d cnt = %d", flag,  i);
 	if (flag == F && i == 0)
@@ -36,7 +39,7 @@ int	*(t_window *window, int flag, int i)
 			return (0);
 		}
 }
-
+//save map-> int is_direction_or_rgb 에서 사용
 int	findmax(int a, int b)
 {
 	if (a > b)
@@ -45,6 +48,7 @@ int	findmax(int a, int b)
 		return b;
 }
 
+//check character에서 사용
 int alphatodefnum(char ch)
 {
 	if (ch == 'W')
@@ -58,7 +62,7 @@ int alphatodefnum(char ch)
 	else 
 		return (1);
 }
-
+//surrounded_by_walls_bfs에서 visited 할당 시 사용
 int	**return_array(int row, int col)
 {
 	int		**tmp;
@@ -67,14 +71,14 @@ int	**return_array(int row, int col)
 	i = -1;
 	tmp = (int **)malloc(sizeof(int*) * row);
 	if(!tmp)
-		ft_put_error("Error malloc\n");
+		return (ft_put_error("Error malloc\n"));
 	while (++i <= row)
 	{
 		tmp[i] = (int *)malloc(sizeof(int) * col);
 		if (!tmp[i])
 		{
 			ft_clean(tmp, i);
-			ft_put_error("Error\n");			
+			return (ft_put_error("Error\n"));			
 		}
 	}
 	return (tmp);
