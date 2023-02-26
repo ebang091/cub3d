@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/26 16:22:31 by eunjungbang       #+#    #+#             */
+/*   Updated: 2023/02/26 16:59:20 by eunjungbang      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "./cub3d.h"
+
+#include "../include/cub3d.h"
 
 static void check_map_components_map(t_window *window, char *str)
 {
@@ -42,8 +54,10 @@ static void	check_map_components_worldmap(t_window *window)
 		while (window->map_char[i][++j] != '\0')
 			if (ft_isdigit(window->map_char[i][j]))
 				window->worldmap[i][j] = window->map_char[i][j] - '0';
+			else if (ft_isalpha(window->map_char[i][j]))
+				window->worldmap[i][j] = alphatodefnum(window->map_char[i][j]);//공백이나 WNES받아서 저장	
 			else
-				window->worldmap[i][j] = window->map_char[i][j];//공백이나 WNES받아서 저장	
+				continue;
 	}
 }
 
@@ -54,10 +68,10 @@ static void	check_map_components(t_window *window, int fd)
 	while (1)
 	{
 		str = get_next_line(fd);
-		if(str == 0) //get next line return value 확인하기.
+		if (str == 0) //get next line return value 확인하기.
 			break;
 		//그냥 다 끝난 게 아니라(EOF가 아니라) 읽어들인 게 없는 거면, 뭐가 반환되지?
-		if(check_map_components_utils(window, str))
+		if (check_map_components_utils(window, str) == 2)
 			check_map_components_map(window, str);
 	}
 	free(str);
@@ -79,11 +93,8 @@ static void	check_map_components(t_window *window, int fd)
 
 }
 
-static void	check_map_contents(t_window *window)
+void	check_map_contents(t_window *window)
 {
-	/*TODO
-	1. 0, 1, 캐릭터 하나로 저장되어있는지 확인.
-	*/
 	int		i;
 	int		j;
 	int		flag;
@@ -95,34 +106,40 @@ static void	check_map_contents(t_window *window)
 		j = -1;
 		while (++j < window->map_col)
 		{
-			if (window->worldmap[i][j] == 1 || window->worldmap[i][j] == 0)
+			if (window->worldmap[i][j] == 1 || window->worldmap[i][j] == 0 || ft_isspace(window->worldmap[i][j]) || window->worldmap[i][j] == -1)
 				continue;
-			else if (flag == 0 && ft_isalpha(window->worldmap[i][j] + '0'))
+			else if (is_directionnum(window->worldmap[i][j]) && !flag)
 			{
 				window->pos_x = j;
 				window->pos_y = i;
-				window->direction = alphatodefnum(window->worldmap[i][j]);
+				window->direction = window->worldmap[i][j];
+				window->character_count++;
 				flag = 1;
-			}
-			else if (window->worldmap[i][j] == ' ' || window->worldmap[i][j] == -1) 
-				continue;
-			else
-			ft_put_error("Error\n");
+			}	
 		}
 	}
 }
 
-int check_map(t_window *window, char *argv)
+int check_map(t_window *window, char *path)
 {
 	int fd;
-	fd = fopen(argv[1] , O_RDONLY);
-	if(fd == -1)
-		ft_put_error("Error\n");
+	fd = open(path , O_RDONLY);
+	if (fd == -1)
+		ft_put_error("Map Error\n");
 	check_map_components(window, fd);
+	printf("1\n");
 	check_map_contents(window);
-	check_map_walls(window);
-	
+	printf("2\n");
 	print_map_utils(window);
+	printf("3\n");
+	check_map_contents_count(window);
+	printf("4\n");
+	if (check_map_walls(window))
+		return(1);
+	//if (check_map_walls_edge(window))
+	//	return (1); : 가장자리가 1또는 -1이면 ok
+	
+	
 	//TODO 
 	/*
 	1. map file open
@@ -159,4 +176,5 @@ int check_map(t_window *window, char *argv)
 	*/
 
 	//map
+	return (0);
 }
