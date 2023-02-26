@@ -1,15 +1,16 @@
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
-void ft_clean(char** str, int n)
+void ft_clean(int** tab, int n)
 {
 	int		i;
 
 	i = -1;
 	while(++i < n)
 	{
-		free(str[i]);
+		if (tab[i])
+			free(tab[i]);
 	}
-	free(str);
+	free(tab);
 }
 
 void free_arr(int **arr, int row)

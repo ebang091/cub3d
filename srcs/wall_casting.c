@@ -1,8 +1,9 @@
 
-#include "./cub3d.h"
+#include "../include/cub3d.h"
 
 void wall_casting()
 {
+  /*
 	    //WALL CASTING
     for(int x = 0; x < w; x++)
     {
@@ -115,14 +116,16 @@ void wall_casting()
         Uint32 color = texture[texNum][texWidth * texY + texX];
         //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 		//문제: 우린 동서남북을 구분해야 한다. 
-		/*
+		
 		현재 side = 0은 x축, side = 1은 y면에 닿았음을 의미
 		
 
 	
 
-		*/
+		
         if(side == 1) color = (color >> 1) & 8355711;
         buffer[y][x] = color;
       }
+
+      */
 }

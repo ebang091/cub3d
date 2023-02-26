@@ -1,5 +1,5 @@
 
-#include "./cub3d.h"
+#include "../include/cub3d.h"
 
 t_node *newnode(int y, int x)
 {
@@ -49,9 +49,9 @@ void getdir(int *y, int *x, int flag)
 	else if (flag == 2)
 		*x += -1;
 	else if (flag == 3)
-		*y = 1;
+		*y += 1;
 	else if (flag == 4)
-		*y = -1;
+		*y += -1;
 }
 
 int BFS(t_window *window)
@@ -60,29 +60,29 @@ int BFS(t_window *window)
 	int		y;
 	int		x;
 	int		i;
-	int		flag;
 
 	while (!window->queue_isempty)
 	{
-		ptr = queue_pop(window);
+		ptr = queue_pop (window);
 		i = 0;
-		flag = 0;
-		while (++i < 4)
+		while (++i < 5)
 		{
 			y = ptr->y;
 			x = ptr->x;
+			printf("now : %d %d\n", y,x);
 			getdir (&y, &x, i);
-			if (window->worldmap[y][x] == 0 && window->visited[y][x] == 0)
+			if ((Cango(window, y, x) && ((window->worldmap[y][x] == 0 && window->visited[y][x] == 0)
+			 || (is_direction(window->worldmap[y][x]) && window->visited[y][x] == 0))))
 			{
+				printf("will visit: %d %d\n", y, x);
 				queue_push(window, y, x);
 				window->visited[y][x] = 1;
-				flag = 1;
+
 			}
-			else if()
-				return(0);
+			else if (window->worldmap[y][x] == -1)
+				return (1);
 		}
-		if	(!flag)
-			return(1);
-		//종료되지 않는 조건에서 어떻게 확인? 모두 갈 수 없는 경우
+		free (ptr);
 	}
+	return (0);
 }
