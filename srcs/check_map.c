@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:22:31 by eunjungbang       #+#    #+#             */
-/*   Updated: 2023/02/26 16:59:20 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/02/26 18:50:16 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ static void	check_map_components(t_window *window, int fd)
 		if (str == 0) //get next line return value 확인하기.
 			break;
 		//그냥 다 끝난 게 아니라(EOF가 아니라) 읽어들인 게 없는 거면, 뭐가 반환되지?
-		if (check_map_components_utils(window, str) == 2)
-			check_map_components_map(window, str);
+		if (check_map_components_utils(window, str) == 2)//N,S,W,E, F,C값이면 RGB혹은 경로 저장, 맵 부분이면 2반환
+			check_map_components_map(window, str);//맵일 때 window->map_char 에 문자열 형태로 저장. 
 	}
 	free(str);
-	check_map_components_worldmap(window);
+	//window->map_char 에 저장되어 있는 문자열을 탐색하면서 1,0을 int형으로, WNSE를 define된 값으로 변경.
+	//나머지 부분은 -1로 초기화되어있다.
+	check_map_components_worldmap(window);//
 
 	//map이 window->worldmap에 저장되어있을 것.
 
@@ -93,7 +95,7 @@ static void	check_map_components(t_window *window, int fd)
 
 }
 
-void	check_map_contents(t_window *window)
+void	check_map_character(t_window *window)
 {
 	int		i;
 	int		j;
@@ -126,18 +128,19 @@ int check_map(t_window *window, char *path)
 	fd = open(path , O_RDONLY);
 	if (fd == -1)
 		ft_put_error("Map Error\n");
-	check_map_components(window, fd);
+	check_map_components(window, fd); //맵을 window->wolrdmap에 int형으로 저장, map 위에 주어지는 정보들을 저장.
 	printf("1\n");
-	check_map_contents(window);
+	check_map_character(window);//캐릭터 위치를 찾아서 window구조체의 posx, posy, direction에 저장.
 	printf("2\n");
-	print_map_utils(window);
+	print_map_utils(window);//확인용 : 저장된 값들을 출력한다. 
 	printf("3\n");
-	check_map_contents_count(window);
+	check_map_contents_count(window); //저장된 값들이 정상인지 확인 : 초기 값과 같지 않도록. 
 	printf("4\n");
-	if (check_map_walls(window))
+	if (check_map_walls(window))//벽으로 둘러싸여 있는지 확인 : 빈칸일 때 BFS를 수행해서 밖으로 나가지 않는가.
 		return(1);
-	//if (check_map_walls_edge(window))
-	//	return (1); : 가장자리가 1또는 -1이면 ok
+	printf("5\n");
+	if (check_map_walls_edge(window))//벽 확인: 가장자리만 따로: -1 혹은 1로만 이루어져 있나.
+		return (1);// : 가장자리가 1또는 -1이면 ok
 	
 	
 	//TODO 

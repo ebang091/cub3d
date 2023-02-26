@@ -100,6 +100,7 @@ int		free_BFS(t_window *window);
 
 //check map
 int		check_map(t_window *window, char *path);
+int		check_map_walls_edge(t_window *window);
 
 //check map utils
 int		get_path(t_window *window, char *path, int flag);

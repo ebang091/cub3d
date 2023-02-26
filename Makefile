@@ -1,8 +1,9 @@
 NAME = cub3D
 CC = cc -g
 CFLAGS = -Wall -Wextra -Werror
-SRCS = BFS.c utils.c main.c utils2.c check_map.c error_handle.c\
+SRCS = bfs.c utils.c main.c utils2.c check_map.c error_handle.c\
 wall_casting.c check_map_utils.c check_map_utils2.c check_map_utils3.c\
+check_wall.c\
 gnl/get_next_line.c gnl/get_next_line_utils.c
 SRCS_DIR = srcs/
 SRCS_C = $(addprefix $(SRCS_DIR), $(SRCS))

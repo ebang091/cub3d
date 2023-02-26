@@ -129,15 +129,15 @@ int main(int argc, char **argv)
 	window = (t_window *)malloc(sizeof(t_window));
 	if (!(window))
 		ft_put_error("Error : malloc\n");
-	if (check_arguments(argv))
-		ft_put_error("Error : argument\n");
-	init_game(window);
-	if(check_map(window, argv[1]))
+	if (check_arguments(argv))//.cub로 끝나는 지 확인
+		ft_put_error("Error : argument\n"); 
+	init_game(window); //window 구조체의 값 초기화 
+	if(check_map(window, argv[1])) //맵을 구조체에 저장, 맵이 유효한지 확인, 맵의 내용들 저장
 		ft_put_error("Error: map error\n");
 	printf("check map done\n");
 	// set_game(window);
-	window->win = mlx_new_window(window->mlx, window->win_width,
-						window->win_height, "CUB_3D");
+	// window->win = mlx_new_window(window->mlx, window->win_width,
+						// window->win_height, "CUB_3D");
 	// floor_casting(window);
 
 	//world map free!
