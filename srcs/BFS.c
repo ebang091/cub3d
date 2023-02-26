@@ -37,7 +37,10 @@ t_node *queue_pop(t_window *window)
 	if (!ptr)
 		ft_put_error("queue Error\n");
 	if (ptr->next == NULL) //큐에 하나만 들어있는 경우
+	{
 		window->queue_isempty = 1;
+		window->queue = NULL;
+	}
 	window->queue = ptr->next;
 	return ptr;
 }
@@ -72,15 +75,17 @@ int BFS(t_window *window)
 			printf("now : %d %d\n", y,x);
 			getdir (&y, &x, i);
 			if ((Cango(window, y, x) && ((window->worldmap[y][x] == 0 && window->visited[y][x] == 0)
-			 || (is_direction(window->worldmap[y][x]) && window->visited[y][x] == 0))))
+			 || (is_directionnum(window->worldmap[y][x]) && window->visited[y][x] == 0))))
 			{
 				printf("will visit: %d %d\n", y, x);
 				queue_push(window, y, x);
 				window->visited[y][x] = 1;
-
 			}
 			else if (window->worldmap[y][x] == -1)
+			{
+				printf("error: %d %d\n", y, x);
 				return (1);
+			}
 		}
 		free (ptr);
 	}

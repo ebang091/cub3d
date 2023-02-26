@@ -46,6 +46,8 @@ void	print_map_utils(t_window *window)
 	4. map input
 	5. error check
 	*/
+
+	printf("map_col : %d, map_row : %d\n", window->map_col, window->map_row);
 	printf("path : N : %s\n", window->N_img.path);
 	printf("path : S : %s\n", window->S_img.path);
 	printf("path : W : %s\n", window->W_img.path);
@@ -54,10 +56,8 @@ void	print_map_utils(t_window *window)
 	printf("\n");
 	printf("F R:%d G:%d B:%d\n", window->floor.r, window->floor.g, window->floor.b);
 	printf("C R:%d G:%d B:%d\n", window->ceiling.r, window->ceiling.g, window->ceiling.b);
-
 	printf("\n");
 	printf("character position - dir: %d, posx: %d, posy : %d\n", window->direction, window->pos_x, window->pos_y);
-
 	printf("********************map check********************\n");
 	for(int i=0;i<window->map_row;i++)
 	{
@@ -70,7 +70,6 @@ void	print_map_utils(t_window *window)
 		}
 		printf("\n");
 	}
-
 }
 
 int ft_isspace(char c)
@@ -82,7 +81,7 @@ int ft_isspace(char c)
 
 int check_map_contents_count(t_window *window)
 {
-	if (window->exist_flag != 4 || window->floor.r == -1 || window->floor.b == -1
+	if (window->exist_flag != 16 || window->floor.r == -1 || window->floor.b == -1
 		 || window->floor.g == -1)
 	{
 		printf("%d %d %d\n", window->exist_flag , window->floor.r, window->floor.b);

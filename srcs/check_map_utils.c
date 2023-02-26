@@ -7,7 +7,7 @@ int check_map_components_utils(t_window *window, char *str)
 	int		i;
 
 	i = -1;
-	printf("str: %s\n", str);
+	printf("str: %s\n ", str);
 	while (str[++i] != '\0')
 	{
 		if ((str[i] == 'w' || str[i] == 'W') && window->map_row == 0)
@@ -24,6 +24,7 @@ int check_map_components_utils(t_window *window, char *str)
 			return (get_rgb(window, &str[i + 1], C));
 		else if(i == 0 && ft_isdigit(str[i]))
 		{
+			printf(" is map\n");
 			window->map_col = findmax(window->map_col, (int)ft_strlen(str));
 			window->map_row++;
 			return (2);
@@ -136,11 +137,11 @@ int	check_map_walls(t_window *window)
 	while (++i < window->map_row)
 	{
 		j = -1;
-		while(++j <= window->map_col)
+		while(++j < window->map_col)
 		{
 			printf("check :%d,%d  ", i,j);
 			if ((window->worldmap[i][j] == 0 && window->visited[i][j] == 0)
-			|| (is_direction(window->worldmap[i][j]) && window->visited[i][j] == 0))
+			|| (is_directionnum(window->worldmap[i][j]) && window->visited[i][j] == 0))
 			{
 				printf("BFS : %d, %d\n", i,j);
 				queue_push(window, i, j);
