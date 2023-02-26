@@ -90,8 +90,8 @@ int check_map_contents_count(t_window *window)
 	}
 	if (window->ceiling.r == -1 || window->ceiling.g == -1 || window->ceiling.b == -1)
 		ft_put_error("Error: map argument\n");
-	if (window->pos_x== -1 || window->pos_y == -1)
-		ft_put_error("Error: character position");
+	if (window->pos_x== -1 || window->pos_y == -1 || window->character_count != 1)
+		ft_put_error("Error: character");
 	if (window->map_col == 0 || window->map_row == 0)
 		ft_put_error("Error: map shape\n");
 	if (window->direction == -1 || window->worldmap == 0)

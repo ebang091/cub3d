@@ -64,6 +64,7 @@ typedef struct s_window
 	int			pos_x;
 	int			pos_y;
 	int			direction;
+	int			character_count;
 	char		**map;
 	int			**worldmap;
 	char		**map_char;

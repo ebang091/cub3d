@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/26 16:22:31 by eunjungbang       #+#    #+#             */
+/*   Updated: 2023/02/26 16:59:20 by eunjungbang      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../include/cub3d.h"
 
@@ -101,6 +113,7 @@ void	check_map_contents(t_window *window)
 				window->pos_x = j;
 				window->pos_y = i;
 				window->direction = window->worldmap[i][j];
+				window->character_count++;
 				flag = 1;
 			}	
 		}
@@ -111,7 +124,7 @@ int check_map(t_window *window, char *path)
 {
 	int fd;
 	fd = open(path , O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 		ft_put_error("Map Error\n");
 	check_map_components(window, fd);
 	printf("1\n");
@@ -123,6 +136,8 @@ int check_map(t_window *window, char *path)
 	printf("4\n");
 	if (check_map_walls(window))
 		return(1);
+	//if (check_map_walls_edge(window))
+	//	return (1); : 가장자리가 1또는 -1이면 ok
 	
 	
 	//TODO 

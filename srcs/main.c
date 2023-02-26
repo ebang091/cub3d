@@ -117,6 +117,7 @@ void init_game(t_window *window)
 	window->ceiling.r = -1;
 	window->ceiling.g = -1;
 	window->ceiling.b = -1;
+	window->character_count = 0;
 }
 
 int main(int argc, char **argv)
@@ -137,7 +138,6 @@ int main(int argc, char **argv)
 	// set_game(window);
 	window->win = mlx_new_window(window->mlx, window->win_width,
 						window->win_height, "CUB_3D");
-	
 	// floor_casting(window);
 
 	//world map free!
