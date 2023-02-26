@@ -89,13 +89,14 @@ static int get_path(t_window *window, char *path, int direction)
 	if (path[i] != 0)
 	{
 		node = find_direction(window, direction);//N, S, W, E 중에 어떤 건지 flag에 저장되어있으므로, 거기에서 맞는 N_img, S_img를 node에 담아온다. 
-		if (!node)
+		if (node == (void *)ERROR)
 			return (ft_put_error("Error\nfind direction"));
 		node->path = path + i;
 		// N , S, W, E는 define 된 값으로 (2,4,8,16 값을 갖고 있음)
 		// 맞는 순서대로 경로를 저장하는지 확인하는 수단: exist_flag
 		//exist_ flag 를 N , S, W, E 순으로 받으면서 2를 곱해가기 때문에, flag(N:2, S:4, W: 8, E: 16)와 exit_flag가 맞게 떨어지는지 확인한다. 
 		//이후에 check_count 함수에서 16이라는 값이 맞는지 확인한다. 
+		printf("exist flag : %d direction : %d\n", window->exist_flag, direction);
 		if (window->exist_flag != direction)
 			return (ft_put_error("Error\n direction order\n"));
 		window->exist_flag++;

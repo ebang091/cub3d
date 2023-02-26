@@ -1,4 +1,6 @@
 
+#include "../include/cub3d.h"
+
 void	print_map_utils(t_window *window)
 {
 	/*

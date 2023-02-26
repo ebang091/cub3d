@@ -4,11 +4,12 @@
 //함수 개수 문제!
 static int create_visited(t_window *window);
 static void getdir(int *y, int *x, int flag);
-static int is_directionnum(int n);
+int			Cango(t_window *window, int y, int x);
 static int bfs(t_window *window);
 static int free_bfs(t_window *window);
 
-static int	check_surrounded_by_walls_bfs(t_window *window)
+
+int	check_surrounded_by_walls_bfs(t_window *window)
 {
 	//1로 잘 둘러싸여 있는지 확인. BFS로 구현하자. 
 	//하니면 
@@ -24,7 +25,7 @@ static int	check_surrounded_by_walls_bfs(t_window *window)
 		while(++j < window->map_col)
 		{
 			if ((window->worldmap[i][j] == 0 && window->visited[i][j] == 0)
-			|| (is_directionnum(window->worldmap[i][j]) && window->visited[i][j] == 0))
+			|| (window->worldmap[i][j] == CHARACTER && window->visited[i][j] == 0))
 			{
 				printf("BFS : %d, %d\n", i,j);
 				queue_push(window, i, j);
@@ -57,8 +58,8 @@ static int bfs(t_window *window)
 			printf("now : %d %d\n", y,x);
 			getdir (&y, &x, i);
 			printf("next: %d %d\n", y, x);
-			if ((Cango(window, y, x) && ((window->worldmap[y][x] == 0 && window->visited[y][x] == 0)
-			 || (is_directionnum(window->worldmap[y][x]) && window->visited[y][x] == 0))))
+			if ((Cango(window, y, x) && window->worldmap[y][x] == 0 && window->visited[y][x] == 0)
+			 || (window->worldmap[y][x] == CHARACTER && window->visited[y][x] == 0))
 			{
 				printf("will visit: %d %d\n", y, x);
 				queue_push(window, y, x);
@@ -103,35 +104,6 @@ static void getdir(int *y, int *x, int flag)
 		*y += -1;
 }
 
-//surrounded_by_walls_bfs에서 visited 할당 시 사용
-static int	**return_array(int row, int col)
-{
-	int		**tmp;
-	int		i;
-
-	i = -1;
-	tmp = (int **)malloc(sizeof(int*) * row);
-	if(!tmp)
-		return (ft_put_error("Error malloc\n"));
-	while (++i <= row)
-	{
-		tmp[i] = (int *)malloc(sizeof(int) * col);
-		if (!tmp[i])
-		{
-			ft_clean(tmp, i);
-			return (ft_put_error("Error\n"));			
-		}
-	}
-	return (tmp);
-}
-
-static int is_directionnum(int n)
-{
-	if (n == NORTH || n == SOUTH || n == WEST || n == EAST)
-		return (SUCCESS);
-	return (ERROR);
-}
-
 static int free_bfs(t_window *window)
 {
 	t_node	*ptr;
@@ -146,4 +118,11 @@ static int free_bfs(t_window *window)
 		ptr = sptr;
 	}
 	return (ft_put_error("Error\nnot surrounded by walls"));
+}
+
+int	Cango(t_window *window, int y, int x)
+{
+	if (0 <= y && y < window->map_row && 0 <= x && x < window->map_col)
+		return (1);
+	return (0);
 }

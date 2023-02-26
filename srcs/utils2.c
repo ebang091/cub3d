@@ -1,5 +1,6 @@
 #include "../include/cub3d.h"
 
+//return array -> surrounded_by_walls_bfs에서 visited 할당 시 사용
 void ft_clean(int** tab, int n)
 {
 	int		i;
@@ -23,7 +24,7 @@ void free_arr(int **arr, int row)
 	free(arr);
 
 }
-
+//save map 쪽에서 사용
 int ft_isspace(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\f' || c == '\v')
@@ -31,17 +32,9 @@ int ft_isspace(char c)
 	return (0);
 }
 
-int is_direction(int c)
+int is_directionnum(int n)
 {
-	if (c == 'E' || c == 'W' || c == 'S' || c == 'N')
-		return(1);
-	else
-		return(0);
-}
-
-int	Cango(t_window *window, int y, int x)
-{
-	if (0 <= y && y < window->map_row && 0 <= x && x < window->map_col)
-		return (1);
-	return (0);
+	if (n == NORTH || n == SOUTH || n == WEST || n == EAST)
+		return (TRUE);
+	return (FALSE);
 }

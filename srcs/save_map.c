@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:22:31 by eunjungbang       #+#    #+#             */
-/*   Updated: 2023/02/26 21:31:18 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/02/27 00:19:58 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static int	mapchar_to_worldmap(t_window *window);
 static int check_map_character(t_window *window);
 static int check_map_contents_count(t_window *window);
+static int	**return_array(int row, int col);
+static int is_direction(char c);
 
 
 int save_map(t_window *window, char *path)
@@ -60,7 +62,7 @@ static int	mapchar_to_worldmap(t_window *window)
 			if (ft_isdigit(window->map_char[i][j]))
 				window->worldmap[i][j] = window->map_char[i][j] - '0';
 			else if (ft_isalpha(window->map_char[i][j]))
-				window->worldmap[i][j] = alphatodefnum(window->map_char[i][j]);//공백이나 WNES받아서 저장	
+				window->worldmap[i][j] = window->map_char[i][j];// WNES는 그대로 받아서 저장	
 			else
 				continue;
 	}
@@ -82,12 +84,13 @@ static int check_map_character(t_window *window)
 		{
 			if (window->worldmap[i][j] == 1 || window->worldmap[i][j] == 0 || ft_isspace(window->worldmap[i][j]) || window->worldmap[i][j] == -1)
 				continue;
-			else if (is_directionnum(window->worldmap[i][j]) && !flag)
+			else if (is_direction(window->worldmap[i][j]) == TRUE && !flag)
 			{
 				window->pos_x = j;
 				window->pos_y = i;
 				window->direction = window->worldmap[i][j];
 				window->character_count++;
+				window->worldmap[i][j] = CHARACTER;
 				flag = 1;
 			}	
 		}
@@ -98,7 +101,7 @@ static int check_map_character(t_window *window)
 static int check_map_contents_count(t_window *window)
 {
 	//return 으로 바꾸기
-	if (window->exist_flag != 16)
+	if (window->exist_flag != 4)
 		return (ft_put_error("Error\n map argument\n"));
 	if (window->floor.r == -1 || window->floor.b == -1 || window->floor.g == -1)
 		return (ft_put_error("Error\n floor rgb"));
@@ -109,7 +112,10 @@ static int check_map_contents_count(t_window *window)
 	if (window->ceiling.r >= 256 || window->ceiling.g >= 256 || window->ceiling.b >= 256)
 		return (ft_put_error("Error\n ceiling rgb more than 255"));
 	if (window->pos_x== -1 || window->pos_y == -1 || window->character_count != 1)
-		return (ft_put_error("Error\n character"));
+		{
+			printf("\n pos: %d %d %d\n", window->pos_x, window->pos_y, window->character_count);
+			return (ft_put_error("Error\n character"));
+		}
 	if (window->map_col == 0 || window->map_row == 0)
 		return (ft_put_error("Error\n map shape\n"));
 	if (window->direction == -1) 
@@ -117,4 +123,32 @@ static int check_map_contents_count(t_window *window)
 	if (window->worldmap == 0)
 		return (ft_put_error("Error\nmap"));
 	return (SUCCESS);
+}
+
+static int	**return_array(int row, int col)
+{
+	int		**tmp;
+	int		i;
+
+	i = -1;
+	tmp = (int **)malloc(sizeof(int*) * row);
+	if(!tmp)
+		exit_error("Error malloc\n");
+	while (++i <= row)
+	{
+		tmp[i] = (int *)malloc(sizeof(int) * col);
+		if (!tmp[i])
+		{
+			ft_clean(tmp, i);
+			exit_error("Error\nmalloc");
+		}
+	}
+	return (tmp);
+}
+
+static int is_direction(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (TRUE);
+	return (FALSE);
 }

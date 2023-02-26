@@ -10,4 +10,4 @@
 10. F,C RGB 값 - 음수
 11. F,C RGB 값 - 오버플로(255초과)
 12. F,C RGB 값 - 공백
-13. 가장자리 제일 위가 0, col max, row min max에서 0이 있는 경우(다음이 -1이 아님)
+13. 가장자리 제일 위가 0, col max, row min max에서 0이 있는 경우(다음이 -1이 아님) -> segfault뜨는 중
