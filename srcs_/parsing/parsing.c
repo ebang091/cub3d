@@ -1,40 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_map.c                                         :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 16:22:31 by eunjungbang       #+#    #+#             */
-/*   Updated: 2023/02/27 16:17:24 by seunghwk         ###   ########.fr       */
+/*   Created: 2023/02/27 16:01:22 by seunghwk          #+#    #+#             */
+/*   Updated: 2023/02/27 16:48:10 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parsing/parsing.h"
 
-#include "../include/cub3d.h"
 static int	mapchar_to_worldmap(t_window *window);
 static int check_map_character(t_window *window);
 static int check_map_contents_count(t_window *window);
 static int	**return_array(int row, int col);
 static int is_direction(char c);
 
-
-int save_map(t_window *window, char *path)
+int	parsing(t_window *window, char *file)
 {
-	int fd;
+	int		fd;
+	char	**raw_map;
 
-	fd = open(path , O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (ft_put_error("Map Error\n"));
-	if (check_path_and_rgb(window, fd) == ERROR)//위치 <save_path_and_rgb.c> - path, rgb값을 떼와서 저장한다. 이때 map_col, map_row를 센다.
-		return (ERROR);
-	if (mapchar_to_worldmap(window) == ERROR)//map_char 문자열을 int 형으로 저장.
-		return (ERROR);
-	if (check_map_character(window) == ERROR)//캐릭터 위치를 찾아서 window구조체의 posx, posy, direction에 저장.
-		return (ERROR);
-	if (check_map_contents_count(window) == ERROR) //저장된 값들이 정상인지 확인 : 초기 값과 같지 않도록. , rgb의 경우 256초과하지 않도록. (음수인 경우는 '-'때문에 check_map_components 내부의 get_rgb함수의 ft_isdigit()함수에서 걸러진다.)
-		return (ERROR);
-	print_map_utils(window);// 위치 <etc.c> - 확인용 함수 : 저장된 값들을 출력한다. (나중에 지울 것)
+	//parse_element;
+	//parse_map;
+	if (check_path_and_rgb(window, fd) == FAILURE)
+		return (FAILURE);
+	if (mapchar_to_worldmap(window) == FAILURE)
+		return (FAILURE);
+	if (check_map_character(window) == FAILURE)
+		return (FAILURE);
+	if (check_map_contents_count(window) == FAILURE)
+		return (FAILURE);
+	print_map_utils(window);
 	return (SUCCESS);
 }
 
@@ -92,6 +94,7 @@ static int check_map_character(t_window *window)
 				window->direction = window->worldmap[i][j];
 				window->character_count++;
 				window->worldmap[i][j] = CHARACTER;
+
 				flag = 1;
 			}
 		}

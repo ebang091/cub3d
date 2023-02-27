@@ -11,8 +11,8 @@ static int free_bfs(t_window *window);
 
 int	check_surrounded_by_walls_bfs(t_window *window)
 {
-	//1로 잘 둘러싸여 있는지 확인. BFS로 구현하자. 
-	//하니면 
+	//1로 잘 둘러싸여 있는지 확인. BFS로 구현하자.
+	//하니면
 	int	i;
 	int	j;
 
@@ -79,7 +79,7 @@ static int bfs(t_window *window)
 static int create_visited(t_window *window)
 {
 	int		i;
-	
+
 	i = -1;
 	window->visited = (int **)malloc(sizeof(int*)*window->map_row);
 	while (++i < window->map_row)

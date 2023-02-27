@@ -86,10 +86,9 @@ typedef struct s_window
 	int 		map_col;
 	int			map_row;
 	char		**map;
-	char		**map_char;
-	int			**worldmap;
+	char		**worldmap;
 
-	//player - global - casting. 
+	//player - global - casting.
 	int			character_count;
 	int			pos_x;
 	int			pos_y;
@@ -97,7 +96,7 @@ typedef struct s_window
 
 
 
-	//BFS 
+	//BFS
 	t_node		*queue;
 	int			queue_isempty;
 	int			**visited;
@@ -127,8 +126,6 @@ int		check_path_and_rgb(t_window *window, int fd);
 
 //check map shape
 int check_map_shape(t_window *window);
-
-
 
 //queue
 

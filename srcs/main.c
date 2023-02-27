@@ -7,15 +7,15 @@ static int check_arguments(char **argv);
 int main(int argc, char **argv)
 {
 	t_window	window;
-	//달라진 점: 
+	//달라진 점:
 	//malloc error 시에는 exit_error로 출력 (출력 후 exit)
 	//그 외 에러 시에는 ft_put_Error로 출력 (출력 후 ERROR 반환) -> 계속 반환 받아 main에서 exit
 
 	if (argc != 2)
 		return (ft_put_error("Error\nargument\n"));
 	if (check_arguments(argv))//.cub로 끝나는 지 확인
-		return (ft_put_error("Error\nargument\n")); 
-	init_game(&window); //window 구조체의 값 초기화 
+		return (ft_put_error("Error\nargument\n"));
+	init_game(&window); //window 구조체의 값 초기화
 	if (save_map(&window, argv[1]) == ERROR) //맵을 구조체에 저장, 맵이 유효한지 확인, 맵의 내용들 저장
 		exit (ERROR);
 	if (check_map_shape(&window) == ERROR)
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 	3. floor casting
 	4. wall casting
 
-	5. draw: 3,4에서 buffer에 저장한 걸 읽으면서 맞게 img를 그린다. 
+	5. draw: 3,4에서 buffer에 저장한 걸 읽으면서 맞게 img를 그린다.
 
 	6. key hook :
 
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	mlx_hook(window->win, X_BUTTON, 0, &x_button, window);
 	mlx_loop(window->mlx);
 	*/
-	
+
 }
 
 static int check_arguments(char **argv)
@@ -87,17 +87,17 @@ void set_game(t_window *window)
 void init_game(t_window *window)
 {
 	window->exist_flag = 0;
-	window->pos_x = -1;
-	window->pos_y = -1;
-	window->map_col = 0;
-	window->map_row = 0;
-	window->direction = -1;
-	window->map = 0;
-	window->queue = 0;
-	window->queue_isempty = 1;
-	window->visited = 0;
-	window->worldmap = 0;
-	window->map_char = 0;
+//	window->pos_x = -1;
+//	window->pos_y = -1;
+//	window->map_col = 0;
+//	window->map_row = 0;
+//	window->direction = -1;
+//	window->map = 0;
+//	window->queue = 0;
+//	window->queue_isempty = 1;
+//	window->visited = 0;
+//	window->worldmap = 0;
+//	window->map_char = 0;
 	window->floor.r = -1;
 	window->floor.g = -1;
 	window->floor.b = -1;
