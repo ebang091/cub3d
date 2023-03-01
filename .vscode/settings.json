@@ -8,6 +8,13 @@
 		"mlx_png.h": "c",
 		"get_next_line.h": "c",
 		"libft.h": "c",
-		"__node_handle": "c"
+		"__node_handle": "c",
+		"parsing.h": "c",
+		"queue.h": "c",
+		"set_window.h": "c",
+		"global.h": "c",
+		"error.h": "c",
+		"stdbool.h": "c",
+		"fcntl.h": "c"
 	}
 }

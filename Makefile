@@ -1,36 +1,95 @@
-NAME = cub3D
-CC = cc -g
-CFLAGS = -Wall -Wextra -Werror
-SRCS = bfs.c check_map_shape.c error_handle.c etc.c main.c\
-floor_casting.c wall_casting.c\
-queue.c save_map.c save_path_and_rgb.c\
-utils.c utils2.c\
-save_map/gnl/get_next_line.c save_map/gnl/get_next_line_utils.c
-SRCS_DIR = srcs/
-SRCS_C = $(addprefix $(SRCS_DIR), $(SRCS))
-OBJS = $(SRCS_C:.c=.o)
-INC = include/cub3d.h
-LIBFT = libft
-MLX = mlx
-CLIB = -L./libft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
+# ---------------------------------------------------------------------------- #
+#   Define the compiler and flags                                              #
+# ---------------------------------------------------------------------------- #
+CC					:=	cc
+CFLAGS				:=	-Wall -Wextra -Werror -march=native -O2 -pipe -fsanitize=address
+CPPFLAGS			:=	-I includes -I $(libft) -I $(mlx)
+#DEPFLAGS			:=	-MMD -MP -MF $(BUILD_DIR)/$(DEP_DIR)/$*.d
+#LDFLAGS			:=	-L libft/libft.a -L $mlx/mlx.a
+#LDLIBS				:=	-l $(libft) -l $(mlx)
+#----------------------	------------------------------------------------------- #
+#   Define the libraries                                                       #
+# ---------------------------------------------------------------------------- #
+libft				:=	libft
+mlx					:=	mlx
+# ---------------------------------------------------------------------------- #
+#   Define the directories                                                     #
+# ---------------------------------------------------------------------------- #
+SRC_DIR				:=	srcs
+SET_WINDOW_DIR		:=	set_window
+UTILS_DIR			:=	utils
+BUILD_DIR			:=	build
+OBJ_DIR				:=	obj
+DEP_DIR				:=	dep
+# ---------------------------------------------------------------------------- #
+#   Define the source files                                                    #
+# ---------------------------------------------------------------------------- #
+SRCS				:=	$(addprefix $(SRC_DIR)/, main.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(SET_WINDOW_DIR)/, set_window.c set_images_rgb_map.c utils_0.c utils_1.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(UTILS_DIR)/, error.c get_next_line.c get_next_line_utils.c)
+OBJS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(OBJ_DIR)/%.o, $(SRCS))
+DEPS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(DEP_DIR)/%.d, $(SRCS))
+# ---------------------------------------------------------------------------- #
+#   Define the variables for progress bar                                      #
+# ---------------------------------------------------------------------------- #
+TOTAL_FILES			:=	$(shell echo $(SRCS) | wc -w)
+COMPILED_FILES		:=	0
+STEP				:=	100
+# ---------------------------------------------------------------------------- #
+#   Define the target                                                          #
+# ---------------------------------------------------------------------------- #
+NAME				:=	cub3d
+# ---------------------------------------------------------------------------- #
+#   Define the rules                                                           #
+# ---------------------------------------------------------------------------- #
+all: $(libft) $(mlx)
+	@$(MAKE) -C $(libft)
+	@$(MAKE) -C $(mlx)
+	@$(MAKE) -j $(NAME)
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $^ -o $@ libft/libft.a mlx/libmlx.a
+	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
 
-
-all : $(NAME)
-
-$(NAME) : $(OBJS)
-	make -C $(LIBFT)
-	make -C $(MLX)
-	$(CC) $(CFLAGS) $(CLIB) -I $(INC) $(OBJS) -o $(NAME)
-
-clean : 
-	rm -rf $(OBJS)
-	make -C $(LIBFT) clean
-	make -C $(MLX) clean
-
-fclean : clean
-	rm -rf $(NAME)
-	make -C $(LIBFT) fclean
-
-re : fclean
-	$(MAKE) all
-.PHONY : all bonus clean fclean re
+$(BUILD_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@ $(LDLIBS)
+	@$(eval COMPILED_FILES = $(shell expr $(COMPILED_FILES) + 1))
+	@$(eval PROGRESS = $(shell expr $(COMPILED_FILES) "*" $(STEP) / $(TOTAL_FILES)))
+	@printf "                                                                                                   \r"
+	@printf "$(YELLOW)[$(NAME)] [%02d/%02d] ( %3d %%) Compiling $<\r$(DEF_COLOR)" $(COMPILED_FILES) $(TOTAL_FILES) $(PROGRESS)
+clean:
+	@$(MAKE) -C $(libft) clean
+	@$(MAKE) -C $(mlx) clean
+	@$(RM) -r $(BUILD_DIR)
+	@printf "$(BLUE)[$(NAME)] obj. dep. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
+fclean:
+	@$(MAKE) -C $(libft) fclean
+	@$(MAKE) -C $(mlx) clean
+	@$(RM) -r $(BUILD_DIR) $(NAME)
+	@printf "$(BLUE)[$(NAME)] obj. dep. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
+	@printf "$(CYAN)[$(NAME)] exec. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
+re: fclean
+	@$(MAKE) -C $(libft)
+	@$(MAKE) -C $(data-structures)
+	@$(MAKE) all
+	@printf "$(GREEN)[$(NAME)] Cleaned and rebuilt everything!\n$(DEF_COLOR)"
+dir_guard:
+	@mkdir -p $(addprefix $(BUILD_DIR)/$(OBJ_DIR)/, $(SET_WINDOW_DIR) \
+	$(UTILS_DIR))
+	@mkdir -p $(addprefix $(BUILD_DIR)/$(DEP_DIR)/, $(SET_WINDOW_DIR) \
+	$(UTILS_DIR))
+norm:
+	@(norminette | grep Error) || (printf "$(GREEN)[$(NAME)] Norminette Success\n$(DEF_COLOR)")
+.PHONY: all clean fclean re dir_guard norm
+# ---------------------------------------------------------------------------- #
+#   Define the colors                                                          #
+# ---------------------------------------------------------------------------- #
+DEF_COLOR   =   \033[1;39m
+GRAY        =   \033[1;90m
+RED         =   \033[1;91m
+GREEN       =   \033[1;92m
+YELLOW      =   \033[1;93m
+BLUE        =   \033[1;94m
+MAGENTA     =   \033[1;95m
+CYAN        =   \033[1;96m
+WHITE       =   \033[1;97m
+-include $(DEPS)
