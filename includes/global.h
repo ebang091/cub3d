@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 20:48:40 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:22:48 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ enum e_objects
 	WALL = 49,
 	FLOOR = 48,
 	EMPTY = 32,
-	N = 110,
-	S = 115,
-	W = 119,
-	E = 101
+	N = 78,
+	S = 83,
+	W = 87,
+	E = 69
 };
 
 typedef struct s_map

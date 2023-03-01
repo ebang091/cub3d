@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:58:52 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 20:51:20 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:19:14 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	set_image(t_window *window, char *line);
 static int	set_rgb(t_window *window, char *line);
 static int	set_map(t_window *window, char *line);
 
+#include <stdio.h>
 int	set_images_rgb_map(t_window *window, int fd)
 {
 	char		*line;
@@ -30,6 +31,7 @@ int	set_images_rgb_map(t_window *window, int fd)
 		if (line == NULL)
 			break ;
 		type = check_type(window, line);
+		printf("type : %d\n", type);
 		if ((type == IMAGE || type == RGB || type == MAP) && \
 			set_type[type](window, line) == FAILURE)
 		{
@@ -95,7 +97,7 @@ static int	set_rgb(t_window *window, char *line)
 	int		i;
 
 	if (set_rgb_strings(window, &rgb, &rgb_strings, line) == FAILURE)
-		return (FAILURE);
+		return (ft_put_error("set_rgb\n"));
 	i = 0;
 	while (i < 3)
 	{
@@ -120,7 +122,7 @@ static int	set_map(t_window *window, char *line)
 	if (map->worldmap == NULL)
 		exit_error("memory allocate error\n");
 	i = 0;
-	while (temp_map && i < map->height - 1)
+	while (i < map->height - 1)
 	{
 		map->worldmap[i] = temp_map[i];
 		++i;
@@ -128,7 +130,6 @@ static int	set_map(t_window *window, char *line)
 	line[ft_strlen(line) - 1] = '\0';
 	map->worldmap[i++] = ft_strdup(line);
 	map->worldmap[i] = NULL;
-	if (temp_map != NULL)
-		free_matrix(temp_map);
+	free(temp_map);
 	return (SUCCESS);
 }

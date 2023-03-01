@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 20:39:55 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:27:20 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include "utils/error.h"
 
 static int	check_arguments(char **argv);
-void		init_window(t_window *window);
+static void	init_window(t_window *window);
+static void	print_window(t_window window);
+
 
 int	main(int argc, char **argv)
 {
@@ -25,7 +27,8 @@ int	main(int argc, char **argv)
 		return (ft_put_error("Error\nargument\n"));
 	init_window(&window);
 	if (set_window(&window, argv[1]) == FAILURE)
-		return (1);
+		return (ft_put_error("fail\n"));
+	print_window(window);
 	return (0);
 }
 
@@ -39,7 +42,7 @@ static int	check_arguments(char **argv)
 	return (SUCCESS);
 }
 
-void	init_window(t_window *window)
+static void	init_window(t_window *window)
 {
 	window->player.pos_x = -1;
 	window->player.pos_y = -1;
@@ -53,4 +56,25 @@ void	init_window(t_window *window)
 	window->ceiling.r = -1;
 	window->ceiling.g = -1;
 	window->ceiling.b = -1;
+}
+
+#include <stdio.h>
+static void	print_window(t_window window)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		printf("%s\n", window.images.path[i]);
+		++i;
+	}
+	printf("ceiling : %d, %d, %d\n", window.ceiling.r, window.ceiling.g, window.ceiling.b);
+	printf("floor : %d, %d, %d\n", window.floor.r, window.floor.g, window.floor.b);
+	i = 0;
+	while (i < window.map.height)
+	{
+		printf("%s\n", window.map.worldmap[i]);
+		++i;
+	}
 }

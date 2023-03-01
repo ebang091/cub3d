@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:01:22 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 20:50:22 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:25:23 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	set_window(t_window *window, char *file)
 	if (fd == -1)
 		return (ft_put_error("Map Error\n"));
 	if (set_images_rgb_map(window, fd) == FAILURE)
-		return (FAILURE);
+		return (ft_put_error("set_images_rgb_map\n"));
 	if (make_map(&window->map) == FAILURE)
-		return (FAILURE);
+		return (ft_put_error("make_map\n"));
 	if (set_player(window) == FAILURE)
-		return (FAILURE);
+		return (ft_put_error("set_player\n"));
 	return (SUCCESS);
 }
 
@@ -49,6 +49,7 @@ static int	make_map(t_map *map)
 		ft_memset(map->worldmap[i], EMPTY, map->width);
 		ft_memcpy(map->worldmap[i], temp_map[i], ft_strlen(temp_map[i]));
 		map->worldmap[i][map->width] = '\0';
+		++i;
 	}
 	map->worldmap[map->height] = NULL;
 	free_matrix(temp_map);

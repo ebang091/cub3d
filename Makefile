@@ -5,8 +5,8 @@ CC					:=	cc
 CFLAGS				:=	-Wall -Wextra -Werror -march=native -O2 -pipe -fsanitize=address
 CPPFLAGS			:=	-I includes -I $(libft) -I $(mlx)
 #DEPFLAGS			:=	-MMD -MP -MF $(BUILD_DIR)/$(DEP_DIR)/$*.d
-#LDFLAGS				:=	-L $(libft) -L $(mlx)
-LDLIBS				:=	-l $(libft) -l $(mlx)
+#LDFLAGS			:=	-L libft/libft.a -L $mlx/mlx.a
+#LDLIBS				:=	-l $(libft) -l $(mlx)
 #----------------------	------------------------------------------------------- #
 #   Define the libraries                                                       #
 # ---------------------------------------------------------------------------- #
@@ -47,7 +47,7 @@ all: $(libft) $(mlx)
 	@$(MAKE) -C $(mlx)
 	@$(MAKE) -j $(NAME)
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $^ -o $@ libft/libft.a mlx/libmlx.a
 	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
 
 $(BUILD_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard
