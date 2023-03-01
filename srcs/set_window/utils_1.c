@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 15:27:13 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 17:04:04 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:48:38 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	set_rgb_strings(t_window *window, int **rgb, \
 		free_matrix(splited_line);
 		return (FAILURE);
 	}
-	if (ft_strcmp(splited_line[0], "F") && exist_flag == 0)
+	if (ft_strncmp(splited_line[0], "F", 2) && exist_flag == 0)
 		*rgb = (int *) &window->floor;
-	else if (ft_strcmp(splited_line[0], "C") && exist_flag == 1)
+	else if (ft_strncmp(splited_line[0], "C", 2) && exist_flag == 1)
 		*rgb = (int *) &window->ceiling;
 	else
 		return (free_matrix(splited_line));

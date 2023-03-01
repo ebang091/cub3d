@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:42:14 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 17:03:41 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:45:04 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,9 @@ int	free_matrix(char **matrix)
 	}
 	free(matrix);
 	return (FAILURE);
+}
+
+bool	is_direction(char element)
+{
+	return (element == N || element == S || element == W || element == E);
 }

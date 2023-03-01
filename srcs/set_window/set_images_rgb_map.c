@@ -6,12 +6,11 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:58:52 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 17:06:01 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:51:20 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set_window/set_window.h"
-#include "utils/get_next_line.h"
 
 static int	check_type(t_window *window, char *line);
 static int	set_image(t_window *window, char *line);
@@ -59,7 +58,7 @@ static int	check_type(t_window *window, char *line)
 		return (set_image_type(window, WEST));
 	else if (ft_strncmp(line, "EA ", 3) == 0 && window->map.height == 0)
 		return (set_image_type(window, EAST));
-	else if (line[0] == 'F' || line[0] == 'C' && window->map.height == 0)
+	else if ((line[0] == 'F' || line[0] == 'C') && window->map.height == 0)
 		return (RGB);
 	else if (is_map_line(line) == true)
 	{
@@ -91,7 +90,6 @@ static int	set_image(t_window *window, char *line)
 
 static int	set_rgb(t_window *window, char *line)
 {
-	char	**splited_line;
 	char	**rgb_strings;
 	int		*rgb;
 	int		i;

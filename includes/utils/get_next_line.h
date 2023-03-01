@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 13:22:52 by ebang             #+#    #+#             */
-/*   Updated: 2023/02/24 15:46:50 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/01 20:39:48 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>	
+# include <string.h>
+
 # define BUFFER_SIZE 10
 
 char	*ft_read_line(int fd, char *buf, char *backup);
@@ -33,4 +34,5 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 
 size_t	ft_strlen(const char *str);
+
 #endif

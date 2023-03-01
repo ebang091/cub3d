@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:20 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 16:32:28 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:44:26 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 # include <stdbool.h>
 
 # include "global.h"
-# include "libft.h"
+# include "../libft/libft.h"
 # include "utils/error.h"
+# include "utils/get_next_line.h"
 
 enum e_types
 {
@@ -29,11 +30,18 @@ enum e_types
 	INVALID = 4
 };
 
+// set_window.c
+int		set_window(t_window *window, char *file);
+
+// set_images_rgb_map.c
+int		set_images_rgb_map(t_window *window, int fd);
+
 // utils_0.c
 bool	is_map_line(char *line);
 int		set_image_type(t_window *window, int type);
 int		matrix_row_len(char **matrix);
 int		free_matrix(char **matrix);
+bool	is_direction(char element);
 
 // utils_1.c
 int		atoi_rgb(const char *str);

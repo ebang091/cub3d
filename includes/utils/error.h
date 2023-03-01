@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:55:13 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/02/28 15:37:11 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:39:46 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define ERROR_H
 
 # include <unistd.h>
+# include <stdlib.h>
 
-# define FAILURE 1
+# include "../libft/libft.h"
+# include "global.h"
 
 int	ft_put_error(char *str);
 int	exit_error(char *str);

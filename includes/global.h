@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 16:55:10 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:48:40 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 # define SUCCESS 0
 # define FAILURE 1
 
-// 널가드체크
 enum e_keys
 {
 	KEY_RELEASE = 3,
 	KEY_PRESSS = 2,
 	X_BUTTON = 17,
-	MAP = 10,
+	KEY_MAP = 10,
 	KEY_ESC = 53,
 	KEY_W = 13,
 	KEY_A = 0,
@@ -60,8 +59,6 @@ typedef struct s_images
 {
 	void	*img[4];
 	char	*path[4];
-	int		x[4];
-	int		y[4];
 	int		width;
 	int		height;
 	int		type;
@@ -92,10 +89,6 @@ typedef struct s_window
 	t_player	player;
 	t_rgb		ceiling;
 	t_rgb		floor;
-
-	int			exist_flag;		 //삭제 가능
-	int			character_count; //삭제 가능
-	//BFS
 	int			queue_isempty;	//삭제 가능
 	int			**visited;		//삭제 가능
 }	t_window;
