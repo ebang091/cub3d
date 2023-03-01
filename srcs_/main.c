@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/02/27 15:29:41 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:15:02 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	if (argc != 2 || check_arguments(argv) == FAILURE)
 		return (ft_put_error("Error\nargument\n"));
 	init_window(&window);
-	if (parssing(&window, argv[1]) == FAILURE)
+	if (set_window(&window, argv[1]) == FAILURE)
 		return (free_exit(&window, FAILURE));
 }
 

@@ -21,7 +21,7 @@ t_image	*find_direction(t_window *window, int flag)
 		return (&window->S_img);
 	else if (flag == WEST)
 		return (&window->W_img);
-	else 
+	else
 		return ((void *)ERROR);
 }
 
@@ -67,6 +67,6 @@ int alphatodefnum(char ch)
 		return (SOUTH);
 	else if (ch == 'E')
 		return (EAST);
-	else 
+	else
 		return (1);
 }

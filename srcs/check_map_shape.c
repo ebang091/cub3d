@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_shape.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 19:51:15 by eunjungbang       #+#    #+#             */
-/*   Updated: 2023/02/27 00:03:46 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/01 10:52:41 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

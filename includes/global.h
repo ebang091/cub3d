@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/02/27 16:04:22 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:55:10 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+// 널가드체크
 enum e_keys
 {
 	KEY_RELEASE = 3,
@@ -52,9 +53,7 @@ typedef struct s_map
 {
 	int		height;
 	int		width;
-	char	**map;
 	char	**worldmap;
-	//char		**map_char;
 }	t_map;
 
 typedef struct s_images
@@ -65,6 +64,7 @@ typedef struct s_images
 	int		y[4];
 	int		width;
 	int		height;
+	int		type;
 }	t_images;
 
 typedef struct s_player
