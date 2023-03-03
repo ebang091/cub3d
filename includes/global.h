@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 22:22:48 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:54:15 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define SUCCESS 0
 # define FAILURE 1
+# define SCREENHEIGHT 640
+# define SCREENWIDTH 480
+
 
 enum e_keys
 {
@@ -26,7 +29,9 @@ enum e_keys
 	KEY_W = 13,
 	KEY_A = 0,
 	KEY_S = 1,
-	KEY_D = 2
+	KEY_D = 2,
+	KEY_RIGHT = 11,
+	KEY_LEFT = 12
 };
 
 enum e_directions
@@ -45,7 +50,9 @@ enum e_objects
 	N = 78,
 	S = 83,
 	W = 87,
-	E = 69
+	E = 69,
+	F = 'F',
+	C = 'C'
 };
 
 typedef struct s_map
@@ -59,16 +66,25 @@ typedef struct s_images
 {
 	void	*img[4];
 	char	*path[4];
-	int		width;
-	int		height;
+	int		width[4];
+	int		height[4];
 	int		type;
+	int		bpp[4];
+	int		size_l[4];
+	int		endian[4];
 }	t_images;
 
 typedef struct s_player
 {
-	int	pos_x;
-	int	pos_y;
+	double	pos_x;
+	double	pos_y;
 	int	direction;
+	double rot_speed;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
+
 }	t_player;
 
 typedef struct s_rgb
@@ -91,6 +107,7 @@ typedef struct s_window
 	t_rgb		floor;
 	int			queue_isempty;	//삭제 가능
 	int			**visited;		//삭제 가능
+	int			buffer[1924][1924];
 }	t_window;
-
+int check_key(int keycode, t_window *window);
 #endif // GlOBAL_H

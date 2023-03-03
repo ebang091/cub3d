@@ -2,8 +2,8 @@
 #   Define the compiler and flags                                              #
 # ---------------------------------------------------------------------------- #
 CC					:=	cc
-CFLAGS				:=	-Wall -Wextra -Werror -march=native -O2 -pipe -fsanitize=address
-CPPFLAGS			:=	-I includes -I $(libft) -I $(mlx)
+CFLAGS				:=	-Wall -Wextra -Werror 
+CPPFLAGS			:=	-I includes #-I $(libft) -I $(mlx)
 #DEPFLAGS			:=	-MMD -MP -MF $(BUILD_DIR)/$(DEP_DIR)/$*.d
 #LDFLAGS			:=	-L libft/libft.a -L $mlx/mlx.a
 #LDLIBS				:=	-l $(libft) -l $(mlx)
@@ -21,12 +21,14 @@ UTILS_DIR			:=	utils
 BUILD_DIR			:=	build
 OBJ_DIR				:=	obj
 DEP_DIR				:=	dep
+RAY_CASTING_DIR		:=	ray_casting
 # ---------------------------------------------------------------------------- #
 #   Define the source files                                                    #
 # ---------------------------------------------------------------------------- #
 SRCS				:=	$(addprefix $(SRC_DIR)/, main.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(SET_WINDOW_DIR)/, set_window.c set_images_rgb_map.c utils_0.c utils_1.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(UTILS_DIR)/, error.c get_next_line.c get_next_line_utils.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(RAY_CASTING_DIR)/, ray_casting.c)
 OBJS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(OBJ_DIR)/%.o, $(SRCS))
 DEPS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(DEP_DIR)/%.d, $(SRCS))
 # ---------------------------------------------------------------------------- #
@@ -47,7 +49,7 @@ all: $(libft) $(mlx)
 	@$(MAKE) -C $(mlx)
 	@$(MAKE) -j $(NAME)
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ libft/libft.a mlx/libmlx.a
+	@$(CC) $(CFLAGS) $^ -o $@  -L./libft/ -lft -L./mlx/ -lmlx -framework OpenGL -framework AppKit
 	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
 
 $(BUILD_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard

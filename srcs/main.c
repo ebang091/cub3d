@@ -3,32 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 22:27:20 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/03 20:10:36 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 #include "set_window/set_window.h"
 #include "utils/error.h"
+#include "../mlx/mlx.h"
 
 static int	check_arguments(char **argv);
 static void	init_window(t_window *window);
 static void	print_window(t_window window);
 
-
+#include <stdio.h>
 int	main(int argc, char **argv)
 {
 	t_window	window;
 
-	if (argc != 2 || check_arguments(argv) == FAILURE)
+	printf("hehhfeh\n");
+	printf("argc: %d", argc);
+	if (argc != 2)
+		return (ft_put_error("Error\nargument\n"));
+	if(check_arguments(argv) == FAILURE)
 		return (ft_put_error("Error\nargument\n"));
 	init_window(&window);
 	if (set_window(&window, argv[1]) == FAILURE)
 		return (ft_put_error("fail\n"));
 	print_window(window);
+	
+	mlx_key_hook(window.win, &check_key, &window);
+	//mlx_hook(window.win, X_BUTTON, 0, &x_button, &window);
+	mlx_loop(window.mlx);
 	return (0);
 }
 
