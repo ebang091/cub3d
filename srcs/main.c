@@ -6,7 +6,7 @@
 /*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/04 00:14:57 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:18:58 by baekgang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	if (check_window(&window) == FAILURE)
 	 	return (FAILURE);
 //	print_window(window);
-	return (0);
+	return (SUCCESS);
 }
 
 static int	check_arguments(char **argv)

@@ -6,7 +6,7 @@
 /*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:40:36 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/04 00:12:53 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:18:43 by baekgang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,6 @@ static char	**init_visited(t_map map);
 static int	dfs(t_map map, char **visited, int y, int x);
 static void	set_next_coordinate(int *x, int *y, int direction);
 static bool	check_coordinate(t_map map, int x, int y);
-
-
-static void	print_visited(t_map map, char **visited)
-{
-	int i;
-	
-	i = 0;
-	while (visited[i])
-	{
-		write(1, visited[i++], map.width);
-		write(1, "\n", 1);
-	}
-}
 
 int	check_surrounded_by_walls(t_map map)
 {
@@ -52,7 +39,6 @@ int	check_surrounded_by_walls(t_map map)
 		}
 		++i;
 	}
-	print_visited(map, visited);
 	free_matrix(visited);
 	return (SUCCESS);
 }
