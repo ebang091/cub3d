@@ -71,14 +71,13 @@ fclean:
 	@printf "$(CYAN)[$(NAME)] exec. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
 re: fclean
 	@$(MAKE) -C $(libft)
-	@$(MAKE) -C $(data-structures)
 	@$(MAKE) all
 	@printf "$(GREEN)[$(NAME)] Cleaned and rebuilt everything!\n$(DEF_COLOR)"
 dir_guard:
 	@mkdir -p $(addprefix $(BUILD_DIR)/$(OBJ_DIR)/, $(SET_WINDOW_DIR) \
-	$(UTILS_DIR))
+	$(UTILS_DIR) $(RAY_CASTING_DIR))
 	@mkdir -p $(addprefix $(BUILD_DIR)/$(DEP_DIR)/, $(SET_WINDOW_DIR) \
-	$(UTILS_DIR))
+	$(UTILS_DIR) $(RAY_CASTING_DIR))
 norm:
 	@(norminette | grep Error) || (printf "$(GREEN)[$(NAME)] Norminette Success\n$(DEF_COLOR)")
 .PHONY: all clean fclean re dir_guard norm

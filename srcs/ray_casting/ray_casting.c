@@ -272,11 +272,50 @@ int check_key(int keycode, t_window *window)
 		key_up(window);
 	if (keycode == KEY_S)
 		key_down(window);
-	else if(keycode == KEY_A || keycode == KEY_D || keycode == KEY_LEFT || keycode == KEY_RIGHT)
+	else if(keycode == KEY_A)
+		key_left(window);
+	else if(keycode == KEY_D)
+		key_right(window);
+	else if(keycode == KEY_LEFT || keycode == KEY_RIGHT)
 		view_rotate(window, keycode);
 	ray_casting(window);
 	// draw_map(window);
 	return (0);
+}
+
+void key_left(t_window *window)//코드 수정 필요
+{
+	char **worldmap;
+	double *pos_x;
+	double *pos_y;
+	double dir_x;
+	double dir_y;
+
+	worldmap = window->map.worldmap;
+	pos_x = &window->player.pos_x;
+	pos_y = &window->player.pos_y;
+	dir_x = window->player.dir_x;
+	dir_y = window->player.dir_y;
+	if (worldmap[(int)(*pos_x + dir_x)][(int)(*pos_y)] != WALL) *pos_x += dir_x;
+	if (worldmap[(int)(*pos_x)][(int)(*pos_y + dir_y)] != WALL) *pos_y += dir_y;
+}
+
+void key_right(t_window *window)//코드 수정 필요
+{
+	char **worldmap;
+	double *pos_x;
+	double *pos_y;
+	double dir_x;
+	double dir_y;
+
+	worldmap = window->map.worldmap;
+	pos_x = &window->player.pos_x;
+	pos_y = &window->player.pos_y;
+	dir_x = window->player.dir_x;
+	dir_y = window->player.dir_y;
+	if (worldmap[(int)(*pos_x + dir_x)][(int)(*pos_y)] != WALL) *pos_x += dir_x;
+	if (worldmap[(int)(*pos_x)][(int)(*pos_y + dir_y)] != WALL) *pos_y += dir_y;
+
 }
 
 void key_up(t_window *window)

@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 19:54:15 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/03 22:01:16 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_window
 	t_rgb		floor;
 	int			queue_isempty;	//삭제 가능
 	int			**visited;		//삭제 가능
-	int			buffer[1924][1924];
+	int			buffer[1924][100];
 }	t_window;
 int check_key(int keycode, t_window *window);
 #endif // GlOBAL_H

@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 20:10:36 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/03 22:02:38 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main(int argc, char **argv)
 		return (ft_put_error("fail\n"));
 	print_window(window);
 	
-	mlx_key_hook(window.win, &check_key, &window);
-	//mlx_hook(window.win, X_BUTTON, 0, &x_button, &window);
-	mlx_loop(window.mlx);
+	// mlx_key_hook(window.win, &check_key, &window);
+	// mlx_hook(window.win, X_BUTTON, 0, &x_button, &window);
+	// mlx_loop(window.mlx);
 	return (0);
 }
 
@@ -67,7 +67,6 @@ static void	init_window(t_window *window)
 	window->ceiling.b = -1;
 }
 
-#include <stdio.h>
 static void	print_window(t_window window)
 {
 	int	i;
