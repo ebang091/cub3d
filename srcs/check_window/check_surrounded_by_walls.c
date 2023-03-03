@@ -6,7 +6,7 @@
 /*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:40:36 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/04 00:20:20 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:55:38 by baekgang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	dfs(t_map map, char **visited, int y, int x)
 			if (dfs(map, visited, ny, nx) == FAILURE)
 				return (FAILURE);
 		}
-		++direction
+		++direction;
 	}
 	return (SUCCESS);
 }
