@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 22:02:38 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/03 23:04:06 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int argc, char **argv)
 		return (ft_put_error("fail\n"));
 	print_window(window);
 	
-	// mlx_key_hook(window.win, &check_key, &window);
+	printf("start!\n");
+	mlx_key_hook(window.win, &check_key, &window);
 	// mlx_hook(window.win, X_BUTTON, 0, &x_button, &window);
 	// mlx_loop(window.mlx);
 	return (0);
@@ -53,6 +54,9 @@ static int	check_arguments(char **argv)
 
 static void	init_window(t_window *window)
 {
+	window->mlx = mlx_init();
+	window->win = mlx_new_window(window->mlx, SCREENWIDTH,
+			SCREENHEIGHT, "so_long");
 	window->player.pos_x = -1;
 	window->player.pos_y = -1;
 	window->player.direction = -1;

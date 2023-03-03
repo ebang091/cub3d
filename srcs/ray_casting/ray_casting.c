@@ -2,10 +2,13 @@
 #include "../mlx/mlx.h"
 #include "global.h"
 #include "math.h"
+#include <stdio.h>
 
 int check_key(int keycode, t_window *window);
 void key_down(t_window *window);
 void key_up(t_window *window);
+void key_left(t_window *window);
+void key_right(t_window *window);
 void view_rotate(t_window *window, int keycode);
 
 void get_direction_vector(t_window *window);
@@ -34,6 +37,7 @@ int ray_casting(t_window *window)
 	double pos_x = window->player.pos_x;
 	double pos_y = window->player.pos_y;
 
+printf("start!\n");
 	while(!done)
 	{
 		for(int x = 0; x < w; x++)
@@ -70,7 +74,6 @@ int ray_casting(t_window *window)
 		//step을 계산하고 side_dist를 초기화. 
 	
 	//get_side_dist
-
 		if (ray_dir_x < 0)
 		{
 			step_x = -1;
@@ -183,11 +186,12 @@ image.img = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
 
 	for(int i = 0; i < h; i++)
 	{
-		for(int j = 0; j < h; j++)
+		for(int j = 0; j < w; j++)
 		{
 			image.addr[i * w + j] = window->buffer[i][j];
 		}
 	}
+
 	mlx_clear_window(window->mlx, window->win);
 	mlx_put_image_to_window(window->mlx, window->win,  window->buffer, 0,0);
 
@@ -255,17 +259,6 @@ image.img = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
 
 int check_key(int keycode, t_window *window)
 {
-	// char **worldmap;
-	// double *pos_x;
-	// double *pos_y;
-	// double *dir_x;
-	// double *dir_y;
-
-	// worldmap = window->map.worldmap;
-	// pos_x = (double*)&window->player.pos_x;
-	// pos_y = (double*)&window->player.pos_y;
-	// dir_x = &(window->player.dir_x);
-	// dir_y = &(window->player.dir_y);
 
 	get_direction_vector(window);
 	if (keycode == KEY_W)
@@ -288,16 +281,16 @@ void key_left(t_window *window)//코드 수정 필요
 	char **worldmap;
 	double *pos_x;
 	double *pos_y;
-	double dir_x;
-	double dir_y;
+	double plane_x;
+	double plane_y;
 
 	worldmap = window->map.worldmap;
 	pos_x = &window->player.pos_x;
 	pos_y = &window->player.pos_y;
-	dir_x = window->player.dir_x;
-	dir_y = window->player.dir_y;
-	if (worldmap[(int)(*pos_x + dir_x)][(int)(*pos_y)] != WALL) *pos_x += dir_x;
-	if (worldmap[(int)(*pos_x)][(int)(*pos_y + dir_y)] != WALL) *pos_y += dir_y;
+	plane_x = window->player.plane_x;
+	plane_y = window->player.plane_y;
+	if (worldmap[(int)(*pos_x + plane_x)][(int)(*pos_y)] != WALL) *pos_x -= plane_x;
+	if (worldmap[(int)(*pos_x)][(int)(*pos_y + plane_y)] != WALL) *pos_y -= plane_y;
 }
 
 void key_right(t_window *window)//코드 수정 필요
@@ -305,16 +298,16 @@ void key_right(t_window *window)//코드 수정 필요
 	char **worldmap;
 	double *pos_x;
 	double *pos_y;
-	double dir_x;
-	double dir_y;
+	double plane_x;
+	double plane_y;
 
 	worldmap = window->map.worldmap;
 	pos_x = &window->player.pos_x;
 	pos_y = &window->player.pos_y;
-	dir_x = window->player.dir_x;
-	dir_y = window->player.dir_y;
-	if (worldmap[(int)(*pos_x + dir_x)][(int)(*pos_y)] != WALL) *pos_x += dir_x;
-	if (worldmap[(int)(*pos_x)][(int)(*pos_y + dir_y)] != WALL) *pos_y += dir_y;
+	plane_x = window->player.plane_x;
+	plane_y = window->player.plane_y;
+	if (worldmap[(int)(*pos_x + plane_x)][(int)(*pos_y)] != WALL) *pos_x += plane_x;
+	if (worldmap[(int)(*pos_x)][(int)(*pos_y + plane_y)] != WALL) *pos_y += plane_y;
 
 }
 
@@ -348,8 +341,8 @@ void key_down(t_window *window)
 	pos_y = &window->player.pos_y;
 	dir_x = window->player.dir_x;
 	dir_y = window->player.dir_y;
-	if (worldmap[(int)(*pos_x + dir_x)][(int)(*pos_y)] != WALL) *pos_x += dir_x;
-	if (worldmap[(int)(*pos_x)][(int)(*pos_y + dir_y)] != WALL) *pos_y += dir_y;
+	if (worldmap[(int)(*pos_x + dir_x)][(int)(*pos_y)] != WALL) *pos_x -= dir_x;
+	if (worldmap[(int)(*pos_x)][(int)(*pos_y + dir_y)] != WALL) *pos_y -= dir_y;
 }
 
 void get_direction_vector(t_window *window)
@@ -385,7 +378,7 @@ void view_rotate(t_window *window, int keycode)
 	plane_x = &window->player.plane_x;
 	plane_y = &window->player.plane_y;
 
-	if (keycode == KEY_RIGHT || keycode == KEY_A)
+	if (keycode == KEY_RIGHT)
 	{
 		double old_dir_x = *dir_x;
 		*dir_x = *dir_x * cos(-rot_speed) - *dir_y * sin(-rot_speed);
@@ -394,7 +387,7 @@ void view_rotate(t_window *window, int keycode)
 		*plane_x = *plane_x * cos(rot_speed) - *plane_y * sin(rot_speed);
 		*plane_y = old_plane_x * sin(rot_speed) + *plane_y * cos(rot_speed);
 	}
-	if (keycode == KEY_LEFT || keycode == KEY_D)
+	if (keycode == KEY_LEFT)
 	{
 		double old_dir_x = *dir_x;
 		*dir_x = *dir_x * cos(rot_speed) - *dir_y * sin(rot_speed);
