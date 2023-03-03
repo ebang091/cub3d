@@ -6,21 +6,16 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:42:14 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 22:23:36 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:59:16 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set_window/set_window.h"
 
-int	set_image_type(t_window *window, int type)
+int	set_path_type(t_window *window, int type)
 {
-	static int	exist_flag = 0;
-
-	if (type != exist_flag)
-		return (INVALID);
 	window->images.type = type;
-	++exist_flag;
-	return (IMAGE);
+	return (PATH);
 }
 
 bool	is_map_line(char *line)

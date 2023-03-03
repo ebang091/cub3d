@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:22:40 by ebang             #+#    #+#             */
-/*   Updated: 2023/03/01 20:08:02 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:37:55 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t		ft_strlcat(char *s1, const char *s2, size_t n);
 
 int			ft_toupper(int a);
+
 int			ft_tolower(int a);
 
 char		*ft_strchr(const char *s, int a);

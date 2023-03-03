@@ -6,18 +6,18 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 22:27:20 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:57:47 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 #include "set_window/set_window.h"
+#include "check_window/check_window.h"
 #include "utils/error.h"
 
 static int	check_arguments(char **argv);
 static void	init_window(t_window *window);
 static void	print_window(t_window window);
-
 
 int	main(int argc, char **argv)
 {
@@ -27,7 +27,9 @@ int	main(int argc, char **argv)
 		return (ft_put_error("Error\nargument\n"));
 	init_window(&window);
 	if (set_window(&window, argv[1]) == FAILURE)
-		return (ft_put_error("fail\n"));
+		return (FAILURE);
+	if (check_window(&window) == FAILURE)
+		return (FAILURE);
 	print_window(window);
 	return (0);
 }
@@ -44,18 +46,13 @@ static int	check_arguments(char **argv)
 
 static void	init_window(t_window *window)
 {
-	window->player.pos_x = -1;
-	window->player.pos_y = -1;
-	window->player.direction = -1;
+	ft_memset(&window->images.path, 0, sizeof(char *) * 4);
 	window->map.height = 0;
 	window->map.width = 0;
 	window->map.worldmap = NULL;
+	window->player.direction = 0;
 	window->floor.r = -1;
-	window->floor.g = -1;
-	window->floor.b = -1;
 	window->ceiling.r = -1;
-	window->ceiling.g = -1;
-	window->ceiling.b = -1;
 }
 
 #include <stdio.h>
@@ -69,9 +66,11 @@ static void	print_window(t_window window)
 		printf("%s\n", window.images.path[i]);
 		++i;
 	}
-	printf("ceiling : %d, %d, %d\n", window.ceiling.r, window.ceiling.g, window.ceiling.b);
-	printf("floor : %d, %d, %d\n", window.floor.r, window.floor.g, window.floor.b);
+	printf("ceiling\t: %d, %d, %d\n", window.ceiling.r, window.ceiling.g, window.ceiling.b);
+	printf("floor\t: %d, %d, %d\n", window.floor.r, window.floor.g, window.floor.b);
+	printf("player\t: %d, %d, %c\n", window.player.pos_x, window.player.pos_y, window.player.direction);
 	i = 0;
+	printf("map width : %d, height : %d\n", window.map.width, window.map.height);
 	while (i < window.map.height)
 	{
 		printf("%s\n", window.map.worldmap[i]);

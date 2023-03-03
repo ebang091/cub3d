@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:20 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 22:12:28 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:52:10 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 enum e_types
 {
-	IMAGE = 0,
+	PATH = 0,
 	RGB = 1,
 	MAP = 2,
 	NEW_LINE = 3,
@@ -33,12 +33,12 @@ enum e_types
 // set_window.c
 int		set_window(t_window *window, char *file);
 
-// set_images_rgb_map.c
-int		set_images_rgb_map(t_window *window, int fd);
+// set_image_rgb_map.c
+int		set_path_rgb_map(t_window *window, int fd);
 
 // utils_0.c
 bool	is_map_line(char *line);
-int		set_image_type(t_window *window, int type);
+int		set_path_type(t_window *window, int type);
 int		matrix_row_len(char **matrix);
 int		free_matrix(char **matrix);
 bool	is_direction(char element);

@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 15:27:13 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 21:56:07 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:09:32 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,22 @@ int	set_rgb_strings(t_window *window, int **rgb, \
 	char ***rgb_strings, char *line)
 {
 	char		**splited_line;
-	static int	exist_flag = 0;
 
 	splited_line = ft_split(line, ' ');
 	if (matrix_row_len(splited_line) != 2)
 	{
 		free_matrix(splited_line);
-		return (ft_put_error("set_rgb_strings\n"));
+		return (ft_put_error("Error\nInvalid rgb element\n"));
 	}
-	if (ft_strncmp(splited_line[0], "F", 2) == 0 && exist_flag == 0)
-		*rgb = (int *) &window->floor;
-	else if (ft_strncmp(splited_line[0], "C", 2) == 0 && exist_flag == 1)
+	if (ft_strncmp(splited_line[0], "C", 2) == 0 && window->ceiling.r == -1)
 		*rgb = (int *) &window->ceiling;
+	else if (ft_strncmp(splited_line[0], "F", 2) == 0 && window->floor.r == -1)
+		*rgb = (int *) &window->floor;
 	else
-		return (free_matrix(splited_line));
+	{
+		free_matrix(splited_line);
+		return (ft_put_error("Error\nInvalid rgb element\n"));
+	}
 	*rgb_strings = ft_split(splited_line[1], ',');
 	if (matrix_row_len(*rgb_strings) != 3)
 	{
@@ -56,6 +58,5 @@ int	set_rgb_strings(t_window *window, int **rgb, \
 		return (free_matrix(splited_line));
 	}
 	free_matrix(splited_line);
-	++exist_flag;
 	return (SUCCESS);
 }

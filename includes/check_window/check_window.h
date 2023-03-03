@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   check_window.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 14:53:34 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/02 15:04:00 by seunghwk         ###   ########.fr       */
+/*   Created: 2023/03/02 15:26:59 by seunghwk          #+#    #+#             */
+/*   Updated: 2023/03/03 14:44:08 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils/error.h"
+#ifndef CHECK_WINDOW_H
+# define CHECK_WINDOW_H
 
-int ft_put_error(char *str)
-{
-	write(1, str, ft_strlen(str));
-	return (FAILURE);
-}
+# include "global.h"
+# include "set_window/set_window.h"
+# include "queue/queue.h"
+# include "utils/error.h"
 
-int exit_error(char *str)
-{
-	write(1, str, ft_strlen(str));
-	exit (FAILURE);
-}
+// check_window.c
+int	check_window(t_window *window);
+
+// check_surrounded_by_walls.c
+int	check_surrounded_by_walls(t_map map);
+
+#endif

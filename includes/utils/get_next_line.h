@@ -5,34 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/23 13:22:52 by ebang             #+#    #+#             */
-/*   Updated: 2023/03/01 20:39:48 by seunghwk         ###   ########.fr       */
+/*   Created: 2022/08/13 17:38:26 by seunghwk          #+#    #+#             */
+/*   Updated: 2023/03/02 13:58:03 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
-# define  GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
+# include "../libft/libft.h"
 
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 42
 
-char	*ft_read_line(int fd, char *buf, char *backup);
-
-char	*ft_cutline(char *line);
-
+// get_next_line.c
 char	*get_next_line(int fd);
 
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-
-char	*ft_strdup(const char *s1);
-
-char	*ft_strjoin(char const *s1, char const *s2);
-
-char	*ft_strchr(const char *s, int c);
-
-size_t	ft_strlen(const char *str);
+// get_next_line_utils.c
+void	backup_init(char **backup);
+char	*backup_join(char *backup, char *buf);
 
 #endif
