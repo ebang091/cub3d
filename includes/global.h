@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/02 15:33:57 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:05:11 by baekgang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ typedef struct s_window
 	t_player	player;
 	t_rgb		ceiling;
 	t_rgb		floor;
-	int			queue_isempty;	//삭제 가능
-	int			**visited;		//삭제 가능
 }	t_window;
 
 #endif // GlOBAL_H

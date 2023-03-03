@@ -3,19 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   check_surrounded_by_walls.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:40:36 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 16:36:27 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:12:53 by baekgang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "check_window/check_window.h"
 
 static char	**init_visited(t_map map);
-static int	bfs(t_map map, char **visited, t_queue *queue);
-static bool	set_next_coordinate(t_map map, int *x, int *y, int direction);
+static int	dfs(t_map map, char **visited, int y, int x);
+static void	set_next_coordinate(int *x, int *y, int direction);
 static bool	check_coordinate(t_map map, int x, int y);
+
+
+static void	print_visited(t_map map, char **visited)
+{
+	int i;
+	
+	i = 0;
+	while (visited[i])
+	{
+		write(1, visited[i++], map.width);
+		write(1, "\n", 1);
+	}
+}
 
 int	check_surrounded_by_walls(t_map map)
 {
@@ -32,15 +45,14 @@ int	check_surrounded_by_walls(t_map map)
 		{
 			if ((map.worldmap[i][j] == FLOOR && visited[i][j] == 'X'))
 			{
-				visited[i][j] = 'O';
-				if (bfs(map, visited, \
-					queue_push(queue_init(), new_node(i, j))) == FAILURE)
-					return (ft_put_error("Error\nInvalid map element\n"));
+				if (dfs(map, visited, i, j) == FAILURE)
+					return (free_matrix(visited));
 			}
 			++j;
 		}
 		++i;
 	}
+	print_visited(map, visited);
 	free_matrix(visited);
 	return (SUCCESS);
 }
@@ -51,7 +63,7 @@ static char	**init_visited(t_map map)
 	int		i;
 
 	i = 0;
-	matrix = (char **) malloc(sizeof(char *) * (map.height));
+	matrix = (char **) malloc(sizeof(char *) * (map.height + 1));
 	if (matrix == NULL)
 		exit_error("Error\nFailed memory allocation\n");
 	while (i < map.height)
@@ -62,55 +74,51 @@ static char	**init_visited(t_map map)
 		ft_memset(matrix[i], 'X', map.width);
 		i++;
 	}
+	matrix[i] = NULL;
 	return (matrix);
 }
-#include <stdio.h>
-static int	bfs(t_map map, char **visited, t_queue *queue)
-{
-	t_node	pop_node;
-	int		direction;
-	int		y;
-	int		x;
 
-	while (queue->head)
+static int	dfs(t_map map, char **visited, int y, int x)
+{
+	int		direction;
+	int		ny;
+	int		nx;
+
+	visited[y][x] = 'O';
+	direction = -1;
+	while (++direction < 4)
 	{
-		pop_node = queue_pop(queue);
-		direction = -1;
-		while (++direction < 4)
+		ny = y;
+		nx = x;
+		set_next_coordinate(&ny, &nx, direction);
+		if (check_coordinate(map, ny, nx) == false)
+			continue ;
+		if (map.worldmap[ny][nx] == EMPTY)
+			return (FAILURE);
+		if (map.worldmap[ny][nx] == FLOOR && visited[ny][nx] == 'X')
 		{
-			y = pop_node.y;
-			x = pop_node.x;
-			printf("check!\n");
-			if (set_next_coordinate(map, &y, &x, direction) && \
-				map.worldmap[y][x] == FLOOR && visited[y][x] == 'X')
-			{
-				visited[y][x] = 'O';
-				queue_push(queue, new_node(y, x));
-			}
-			if (check_coordinate(map, y, x) && map.worldmap[y][x] == EMPTY)
-				return (free_queue(queue));
+			if (dfs(map, visited, ny, nx) == FAILURE)
+				return (FAILURE);
 		}
 	}
-	free(queue);
 	return (SUCCESS);
 }
 
-static bool	set_next_coordinate(t_map map, int *y, int *x, int direction)
+static void	set_next_coordinate(int *ny, int *nx, int direction)
 {
 	if (direction == NORTH)
-		*y -= 1;
+		*ny += -1;
 	else if (direction == SOUTH)
-		*y += -1;
+		*ny += 1;
 	else if (direction == WEST)
-		*x -= 1;
+		*nx += -1;
 	else if (direction == EAST)
-		*x += -1;
-	return (check_coordinate(map, *y, *x));
+		*nx += 1;
 }
 
-static bool	check_coordinate(t_map map, int y, int x)
+static bool	check_coordinate(t_map map, int ny, int nx)
 {
-	if (x < 0 || x >= map.width || y < 0 || y >= map.height)
+	if (ny < 0 || ny >= map.height || nx < 0 || nx >= map.width)
 		return (false);
 	return (true);
 }

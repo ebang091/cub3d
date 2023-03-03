@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:26:16 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 16:32:28 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:13:10 by baekgang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static int	check_rgb(t_window *window)
 static int	check_map(t_window *window)
 {
 	if (check_edge(window->map) == FAILURE || \
-		check_surrounded_by_walls(window->map) == FAILURE)
+		check_surrounded_by_walls(window->map) == FAILURE )
 	{
 		free_matrix(window->map.worldmap);
-		return (FAILURE);
+		return (ft_put_error("Error\nInvalid map element\n"));
 	}
 	return (SUCCESS);
 }
@@ -72,7 +72,7 @@ static int	check_edge(t_map map)
 		if ((worldmap[0][i] != EMPTY && worldmap[0][i] != WALL) || \
 			(worldmap[map.height - 1][i] != EMPTY && \
 			worldmap[map.height - 1][i] != WALL))
-			return (ft_put_error("Error\nInvalid map element\n"));
+			return (FAILURE);
 		++i;
 	}
 	i = 0;
@@ -81,7 +81,7 @@ static int	check_edge(t_map map)
 		if ((worldmap[i][0] != EMPTY && worldmap[i][0] != WALL) || \
 			(worldmap[i][map.width - 1] != EMPTY && \
 			worldmap[i][map.width - 1] != WALL))
-			return (ft_put_error("Error\nInvalid map element\n"));
+			return (FAILURE);
 		++i;
 	}
 	return (SUCCESS);
