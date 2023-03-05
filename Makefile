@@ -18,6 +18,7 @@ mlx					:=	mlx
 SRC_DIR				:=	srcs
 SET_WINDOW_DIR		:=	set_window
 CHECK_WINDOW_DIR	:=	check_window
+RAYCASTING_DIR		:=	raycasting
 UTILS_DIR			:=	utils
 BUILD_DIR			:=	build
 OBJ_DIR				:=	obj
@@ -29,6 +30,7 @@ SRCS				:=	$(addprefix $(SRC_DIR)/, main.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(SET_WINDOW_DIR)/, set_window.c set_path_rgb_map.c utils_0.c utils_1.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(CHECK_WINDOW_DIR)/, check_window.c check_surrounded_by_walls.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(UTILS_DIR)/, error.c get_next_line.c get_next_line_utils.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(RAYCASTING_DIR)/, raycasting.c)
 OBJS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(OBJ_DIR)/%.o, $(SRCS))
 DEPS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(DEP_DIR)/%.d, $(SRCS))
 # ---------------------------------------------------------------------------- #
@@ -70,15 +72,15 @@ fclean:
 	@printf "$(BLUE)[$(NAME)] obj. dep. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
 	@printf "$(CYAN)[$(NAME)] exec. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
 re: fclean
-	@$(MAKE) -C $(libft)
-	@$(MAKE) -C $(data-structures)
+	# @$(MAKE) -C $(libft)
+	# @$(MAKE) -C $(data-structures)
 	@$(MAKE) all
 	@printf "$(GREEN)[$(NAME)] Cleaned and rebuilt everything!\n$(DEF_COLOR)"
 dir_guard:
 	@mkdir -p $(addprefix $(BUILD_DIR)/$(OBJ_DIR)/, $(SET_WINDOW_DIR) \
-	$(CHECK_WINDOW_DIR) $(UTILS_DIR))
+	$(CHECK_WINDOW_DIR) $(UTILS_DIR) $(RAYCASTING_DIR))
 	@mkdir -p $(addprefix $(BUILD_DIR)/$(DEP_DIR)/, $(SET_WINDOW_DIR) \
-	$(CHECK_WINDOW_DIR) $(UTILS_DIR))
+	$(CHECK_WINDOW_DIR) $(UTILS_DIR) $(RAYCASTING_DIR))
 norm:
 	@(norminette | grep Error) || (printf "$(GREEN)[$(NAME)] Norminette Success\n$(DEF_COLOR)")
 .PHONY: all clean fclean re dir_guard norm

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/04 00:18:58 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/05 23:16:26 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 #include "set_window/set_window.h"
 #include "check_window/check_window.h"
+#include "raycasting/raycasting.h"
 #include "utils/error.h"
 
 static int	check_arguments(char **argv);
@@ -31,6 +32,8 @@ int	main(int argc, char **argv)
 	if (check_window(&window) == FAILURE)
 	 	return (FAILURE);
 //	print_window(window);
+
+	ready_window(&window);
 	return (SUCCESS);
 }
 

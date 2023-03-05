@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 22:05:11 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/05 23:12:39 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # define SUCCESS 0
 # define FAILURE 1
+# define SCREENHEIGHT 640
+# define SCREENWIDTH 480
+# define PIX 64
+# define X_EVENT_KEY_PRESS 2
 
 enum e_keys
 {
@@ -80,15 +84,16 @@ typedef struct s_rgb
 
 typedef struct s_window
 {
-	void		*mlx;
-	void		*win;
-	int			win_height;
-	int			win_width;
-	t_map		map;
-	t_images	images;
-	t_player	player;
-	t_rgb		ceiling;
-	t_rgb		floor;
+	void			*mlx;
+	void			*win;
+	int				win_height;
+	int				win_width;
+	unsigned int	*buffer;
+	t_map			map;
+	t_images		images;
+	t_player		player;
+	t_rgb			ceiling;
+	t_rgb			floor;
 }	t_window;
 
 #endif // GlOBAL_H
