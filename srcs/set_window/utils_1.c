@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 15:27:13 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/05 09:27:58 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/05 23:00:00 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	set_rgb_strings(t_window *window, int **rgb, \
 		return (ft_put_error("set_rgb_strings\n"));
 	}
 	if (ft_strncmp(splited_line[0], "F", 2) == 0 && exist_flag == 0)
-		*rgb = (int *) &window->floor;
+		*rgb =  &window->floor.r;
 	else if (ft_strncmp(splited_line[0], "C", 2) == 0 && exist_flag == 1)
-		*rgb = (int *) &window->ceiling;
+		*rgb =  &window->ceiling.r;
 	else
 		return (free_matrix(splited_line));
 	*rgb_strings = ft_split(splited_line[1], ',');

@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:58:52 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/05 09:27:14 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/05 22:57:40 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	set_rgb(t_window *window, char *line)
 	while (i < 3)
 	{
 		rgb[i] = atoi_rgb(rgb_strings[i]);
-		printf("%d", rgb[0]);
+		printf("rgb[%d]: %d\n",i, rgb[i]);
 		if (rgb[i] == -1)
 			return (free_matrix(rgb_strings));
 		++i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/05 21:12:05 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/05 23:40:36 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define SUCCESS 0
 # define FAILURE 1
-# define SCREENHEIGHT 640
-# define SCREENWIDTH 480
+# define SCREENHEIGHT 1080
+# define SCREENWIDTH 1920
 # define PIX 64
 # define X_EVENT_KEY_PRESS 2
 
@@ -33,8 +33,8 @@ enum e_keys
 	KEY_A = 0,
 	KEY_S = 1,
 	KEY_D = 2,
-	KEY_RIGHT = 11,
-	KEY_LEFT = 12
+	KEY_LEFT = 123,
+	KEY_RIGHT = 124
 	
 };
 
@@ -70,7 +70,7 @@ typedef struct s_img
 {
 	void	*mlx;
 	void 	*img;
-	unsigned int	*addr;
+	char	*data;
 	int		bpp;
 	int		size_l;
 	int		endian;
@@ -102,9 +102,10 @@ typedef struct s_player
 
 typedef struct s_rgb
 {
-	int	r;
-	int	g;
-	int	b;
+	int				r;
+	int				g;
+	int				b;
+	unsigned int	color;
 }	t_rgb;
 
 typedef struct s_window

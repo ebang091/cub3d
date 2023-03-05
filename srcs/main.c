@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/05 21:29:14 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/05 23:42:18 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,17 @@ int	main(int argc, char **argv)
 	print_window(window);
 	
 	
+	window.floor.color = make_bits_rgb(window.floor.r, window.floor.b, window.floor.b);
+	get_direction_vector(&window);
 	printf("start!\n");
-	ready_window(&window);	//ok
-	mlx_hook(window.win, X_EVENT_KEY_PRESS, 0, &press_key, &window);
-	// mlx_loop_hook(window.win, &ray_casting, &window);
-	// mlx_key_hook(window.win, KEY_PRESS, 0, &check_key, &window);
+	ready_window(&window);
+	mlx_hook(window.win, X_EVENT_KEY_PRESS, 0, check_key, &window);
+	// mlx_loop_hook(window.win, ray_casting, &window);
+	if(window.mlx == 0)
+		{
+			printf("wrong mlx!\n");
+			return (0);
+		}
 	mlx_loop(window.mlx);
 	return (0);
 }
@@ -50,8 +56,7 @@ int	press_key(int key_code, t_window *window)
 	if (key_code == KEY_ESC)
 		printf("ESC key 수정하기\n");
 		// exit_game(window);
-	else
-		ray_casting(window);
+	window = window + 0;
 	// if (key_code == KEY_W)
 	// 	move_w(map);
 	// if (key_code == KEY_A)
@@ -77,9 +82,10 @@ static void	init_window(t_window *window)
 {
 	window->mlx = mlx_init();
 	window->win = mlx_new_window(window->mlx, SCREENWIDTH,
-			SCREENHEIGHT, "cub3d");
+			SCREENHEIGHT, "cub_3d");
 	window->main_image.img = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
-	window->main_image.addr = (unsigned int*)mlx_get_data_addr(window->main_image.img, &window->main_image.bpp, &window->main_image.size_l, &window->main_image.endian);
+	window->main_image.data = mlx_get_data_addr(window->main_image.img, &window->main_image.bpp, &window->main_image.size_l, &window->main_image.endian);
+	printf("size of addr: %lu\n", sizeof(window->main_image.data));
 	window->player.pos_x = -1;
 	window->player.pos_y = -1;
 	window->player.direction = -1;
