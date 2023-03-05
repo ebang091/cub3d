@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 23:04:06 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/05 10:53:07 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "set_window/set_window.h"
 #include "utils/error.h"
 #include "../mlx/mlx.h"
+#include "../includes/ray_casting/ray_casting.h"
 
 static int	check_arguments(char **argv);
 static void	init_window(t_window *window);
@@ -24,8 +25,6 @@ int	main(int argc, char **argv)
 {
 	t_window	window;
 
-	printf("hehhfeh\n");
-	printf("argc: %d", argc);
 	if (argc != 2)
 		return (ft_put_error("Error\nargument\n"));
 	if(check_arguments(argv) == FAILURE)
@@ -35,10 +34,12 @@ int	main(int argc, char **argv)
 		return (ft_put_error("fail\n"));
 	print_window(window);
 	
+	
 	printf("start!\n");
-	mlx_key_hook(window.win, &check_key, &window);
-	// mlx_hook(window.win, X_BUTTON, 0, &x_button, &window);
-	// mlx_loop(window.mlx);
+	ready_window(&window);
+	mlx_loop_hook(window.win, &ray_casting, &window);
+	// mlx_key_hook(window.win, KEY_PRESS, 0, &check_key, &window);
+	mlx_loop(window.mlx);
 	return (0);
 }
 
@@ -56,7 +57,9 @@ static void	init_window(t_window *window)
 {
 	window->mlx = mlx_init();
 	window->win = mlx_new_window(window->mlx, SCREENWIDTH,
-			SCREENHEIGHT, "so_long");
+			SCREENHEIGHT, "cub3d");
+	window->main_image.img = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
+	window->main_image.addr = (unsigned int*)mlx_get_data_addr(window->main_image.img, &window->main_image.bpp, &window->main_image.size_l, &window->main_image.endian);
 	window->player.pos_x = -1;
 	window->player.pos_y = -1;
 	window->player.direction = -1;

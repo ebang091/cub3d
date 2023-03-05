@@ -1,8 +1,9 @@
 
 #include "../mlx/mlx.h"
-#include "global.h"
+#include "../../includes/global.h"
 #include "math.h"
 #include <stdio.h>
+#include "../../includes/ray_casting/ray_casting.h"
 
 int check_key(int keycode, t_window *window);
 void key_down(t_window *window);
@@ -11,23 +12,126 @@ void key_left(t_window *window);
 void key_right(t_window *window);
 void view_rotate(t_window *window, int keycode);
 
+
 void get_direction_vector(t_window *window);
 void draw_img(int x, int y, char type, t_window *window);
 
+void ready_window(t_window *window);
 
+void	save_wall_texture(t_window *window);
+void	draw_background(t_window *window);
+
+
+void save_wall_texture(t_window *window)
+{
+	
+	for (int i=0 ;i < 4; i++)
+	{
+		window->images.texture[i].img = mlx_xpm_file_to_image(window->mlx, window->images.path[i], &window->images.width[i], &window->images.height[i]);
+		window->images.texture[i].addr = (unsigned int*)mlx_get_data_addr(window->images.texture[i].img, &window->images.texture[i].bpp, &window->images.texture[i].size_l, &window->images.texture[i].endian);
+	}
+}
+
+void	initial_malloc(t_window *window)
+{
+	window->buffer = (unsigned int *)malloc(sizeof(unsigned int)*SCREENHEIGHT * SCREENWIDTH + 1);
+	if(!window->buffer)
+		exit_error("Error\nmalloc failed");
+}
+//utils
+
+void	draw_line(t_window *window, unsigned int *line, int startline, int endline)
+{
+	int	drawstart;
+	int	drawend;
+	int	w;
+	int	i;
+	int	j;
+
+	drawstart = startline;
+	drawend = endline;
+	i = drawstart-1;
+	w = SCREENWIDTH;
+	line = line + 0;
+	while (++i < drawend)
+	{
+		j = -1;
+		while(++j < w)
+			window->buffer[i * w + j] = line[i * w + j];
+	}
+}
+
+unsigned int	make_bits_rgb(int r, int g, int b)
+{
+	unsigned int	color;
+
+	color = (r << 16) + (g << 8) + b;
+	return (color);
+}
+void	draw_background(t_window *window)
+{
+	unsigned int	fcolor;
+	unsigned int	ccolor;
+	unsigned int	*line;
+	int	i;
+
+	line = (unsigned int *)malloc(sizeof(unsigned int)*SCREENWIDTH);
+	if (!line)
+		exit_error("Error\nmalloc failed");
+	fcolor = make_bits_rgb(window->floor.r, window->floor.b, window->floor.b);
+	ccolor = make_bits_rgb(window->ceiling.r, window->ceiling.g, window->ceiling.b);
+	i = -1;
+	while(++i < SCREENWIDTH)
+		line[i] = fcolor;
+	draw_line(window, line, 0, SCREENHEIGHT/2);
+	i = -1;
+	while(++i < SCREENWIDTH)
+		line[i] = ccolor;
+	draw_line(window, line, SCREENHEIGHT/2, SCREENHEIGHT);
+	free(line);
+}
+
+void ready_window(t_window *window)
+{
+	initial_malloc(window);
+	printf("st");
+	save_wall_texture(window);
+}
+
+void	save_buffer_to_image_addr(t_img img, unsigned int *buffer)
+{
+	unsigned int	*ret;
+	int				i;
+	int				j;
+
+	
+	i = -1;
+	ret = img.addr;
+	while (++i < SCREENHEIGHT)
+	{
+		j = -1;
+		while (++j < SCREENWIDTH)
+			ret[i * SCREENWIDTH + j] = buffer[i * SCREENWIDTH + j];
+	}
+	
+}
 
 int ray_casting(t_window *window)
 {
+	
+	ready_window(window);
+	draw_background(window);
+	
+	// t_img	img;
+	// int w, h;
+	// img.img= mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
+	// img.img = mlx_xpm_file_to_image(window->mlx, window->images.path[0], &w, &h);
+	// img.addr= mlx_get_data_addr(img.img, &img.bpp, &img.size_l, &img.endian);
+	save_buffer_to_image_addr (window->main_image, window->buffer);
+	mlx_put_image_to_window(window->mlx, window->win, window->main_image.img, 0,0);
+	/*
 
 	int done = 0;
-	char *texture[4];
-	
-	
-	for(int i=0; i < 4; i++)
-	{
-		window->images.img[i] = mlx_xpm_file_to_image(window->mlx, window->images.path[i], &window->images.width[i], &window->images.height[i]);
-		texture[i] = mlx_get_data_addr(window->images.img[i], &window->images.bpp[i], &window->images.size_l[i], &window->images.endian[i]);
-	}
 	int h = SCREENHEIGHT;
 	int w = SCREENWIDTH;
 	double dir_x = window->player.dir_x;
@@ -37,7 +141,7 @@ int ray_casting(t_window *window)
 	double pos_x = window->player.pos_x;
 	double pos_y = window->player.pos_y;
 
-printf("start!\n");
+	printf("start!\n");
 	while(!done)
 	{
 		for(int x = 0; x < w; x++)
@@ -120,15 +224,15 @@ printf("start!\n");
 			//벽에 부딪혔는지 확인
 			if (window->map.worldmap[map_y][map_x] == WALL) hit = 1;
 		}
-
-		/*
+	
+		
 		궁극적인 목표 : side_dist_x 구하고, side 값 구한뒤
 		이를 이용해서 perp_wall_dist 구하기: 그릴 길이만큼의 값을 구한다.
 
 		line_height : 맵의 '벽'픽셀 하나에서 벽이 그려질 끝 위치.
 
 		
-		*/
+	
 
 		if (side == EAST || side == WEST) perp_wall_dist = (map_x - pos_x + (1 - step_x) /2) / ray_dir_x;
 		else	perp_wall_dist = (map_y - pos_y + (! -step_y) / 2 ) / ray_dir_y;
@@ -162,44 +266,23 @@ printf("start!\n");
         // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
         int tex_y = (int)tex_pos & (tex_height - 1);
         tex_pos += step;
-		unsigned int color =  texture[tex_num][tex_y * window->images.size_l[tex_num] + tex_x];
+		unsigned int color =  window->images.texture[tex_num].addr[tex_y * PIX + tex_x];
 		if(side == 1) color = (color >> 1) & 8355711;
         //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-        window->buffer[y][x] = color;
+        window->buffer[y * w + x]= color;
       }
     }
+	
 
 //tex_X, tex_Y :  그림의 어느 부분을 그릴거냐!
 
-typedef struct s_data
-{
-	void 	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}		t_data;
-
-t_data image;
-image.img = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
-
-
-	for(int i = 0; i < h; i++)
-	{
-		for(int j = 0; j < w; j++)
-		{
-			image.addr[i * w + j] = window->buffer[i][j];
-		}
-	}
-
-	mlx_clear_window(window->mlx, window->win);
-	mlx_put_image_to_window(window->mlx, window->win,  window->buffer, 0,0);
 
 
 
 
 
-	}
+}
+	*/
 	return (0);
 }
 
@@ -271,7 +354,7 @@ int check_key(int keycode, t_window *window)
 		key_right(window);
 	else if(keycode == KEY_LEFT || keycode == KEY_RIGHT)
 		view_rotate(window, keycode);
-	ray_casting(window);
+	
 	// draw_map(window);
 	return (0);
 }

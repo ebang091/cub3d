@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:01:22 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 22:25:23 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/05 09:33:14 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	set_player(t_window *window)
 				window->player.pos_x = j;
 				window->player.pos_y = i;
 				window->player.direction = window->map.worldmap[i][j];
-				window->map.worldmap[i][j] = EMPTY;
+				window->map.worldmap[i][j] = FLOOR;
 				flag = true;
 			}
 		}

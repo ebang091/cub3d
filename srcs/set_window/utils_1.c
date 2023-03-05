@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 15:27:13 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/01 21:56:07 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/05 09:27:58 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set_window/set_window.h"
+#include "../includes/global.h"
 
 int	atoi_rgb(const char *str)
 {
 	int	num;
-
+	
 	num = 0;
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		++str;
@@ -30,7 +31,7 @@ int	atoi_rgb(const char *str)
 	else
 		return (-1);
 }
-
+#include <stdio.h>
 int	set_rgb_strings(t_window *window, int **rgb, \
 	char ***rgb_strings, char *line)
 {

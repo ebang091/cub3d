@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 22:45:19 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/05 10:19:43 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 # define FAILURE 1
 # define SCREENHEIGHT 640
 # define SCREENWIDTH 480
+# define PIX 64
 
+#include <stdio.h>
 
 enum e_keys
 {
 	KEY_RELEASE = 3,
-	KEY_PRESSS = 2,
+	KEY_PRESS = 2,
 	X_BUTTON = 17,
 	KEY_MAP = 10,
 	KEY_ESC = 53,
@@ -32,6 +34,7 @@ enum e_keys
 	KEY_D = 2,
 	KEY_RIGHT = 11,
 	KEY_LEFT = 12
+	
 };
 
 enum e_directions
@@ -62,16 +65,25 @@ typedef struct s_map
 	char	**worldmap;
 }	t_map;
 
+typedef struct s_img
+{
+	void	*mlx;
+	void 	*img;
+	unsigned int	*addr;
+	int		bpp;
+	int		size_l;
+	int		endian;
+}	t_img;
+
 typedef struct s_images
 {
-	void	*img[4];
+	void	*img;
 	char	*path[4];
 	int		width[4];
 	int		height[4];
 	int		type;
-	int		bpp[4];
-	int		size_l[4];
-	int		endian[4];
+	t_img	texture[4];
+	t_img	draw_image;
 }	t_images;
 
 typedef struct s_player
@@ -96,18 +108,17 @@ typedef struct s_rgb
 
 typedef struct s_window
 {
-	void		*mlx;
-	void		*win;
-	int			win_height;
-	int			win_width;
-	t_map		map;
-	t_images	images;
-	t_player	player;
-	t_rgb		ceiling;
-	t_rgb		floor;
-	int			queue_isempty;	//삭제 가능
-	int			**visited;		//삭제 가능
-	int			buffer[1924][100];
+	void			*mlx;
+	void			*win;
+	int				win_height;
+	int				win_width;
+	t_map			map;
+	t_images		images;
+	t_player		player;
+	t_rgb			ceiling;
+	t_rgb			floor;
+	t_img			main_image;
+	unsigned int	*buffer;
 }	t_window;
 int check_key(int keycode, t_window *window);
 #endif // GlOBAL_H

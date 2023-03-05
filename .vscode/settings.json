@@ -15,6 +15,9 @@
 		"global.h": "c",
 		"error.h": "c",
 		"stdbool.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"ray_casting.h": "c",
+		"stdlib.h": "c",
+		"streambuf": "c"
 	}
 }
