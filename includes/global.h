@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/05 10:19:43 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/05 21:12:05 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # define SCREENHEIGHT 640
 # define SCREENWIDTH 480
 # define PIX 64
+# define X_EVENT_KEY_PRESS 2
 
-#include <stdio.h>
+# include <stdio.h>
 
 enum e_keys
 {

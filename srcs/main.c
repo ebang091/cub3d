@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/05 10:53:07 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/05 21:29:14 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 static int	check_arguments(char **argv);
 static void	init_window(t_window *window);
 static void	print_window(t_window window);
+int	press_key(int key_code, t_window *window);
 
 #include <stdio.h>
 int	main(int argc, char **argv)
@@ -36,10 +37,29 @@ int	main(int argc, char **argv)
 	
 	
 	printf("start!\n");
-	ready_window(&window);
-	mlx_loop_hook(window.win, &ray_casting, &window);
+	ready_window(&window);	//ok
+	mlx_hook(window.win, X_EVENT_KEY_PRESS, 0, &press_key, &window);
+	// mlx_loop_hook(window.win, &ray_casting, &window);
 	// mlx_key_hook(window.win, KEY_PRESS, 0, &check_key, &window);
 	mlx_loop(window.mlx);
+	return (0);
+}
+
+int	press_key(int key_code, t_window *window)
+{
+	if (key_code == KEY_ESC)
+		printf("ESC key 수정하기\n");
+		// exit_game(window);
+	else
+		ray_casting(window);
+	// if (key_code == KEY_W)
+	// 	move_w(map);
+	// if (key_code == KEY_A)
+	// 	move_a(map);
+	// if (key_code == KEY_S)
+	// 	move_s(map);
+	// if (key_code == KEY_D)
+	// 	move_d(map);
 	return (0);
 }
 

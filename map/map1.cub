@@ -1,7 +1,7 @@
-NO ../../images/NORTH.xpm
-SO ../../images/SOUTH.xpm
-WE ../../images/WEST.xpm
-EA ../../images/EAST.xpm
+NO ./images/NORTH.xpm
+SO ./images/SOUTH.xpm
+WE ./images/WEST.xpm
+EA ./images/EAST.xpm
 F 220,100,0
 C 225,30,0
 
