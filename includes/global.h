@@ -6,7 +6,7 @@
 /*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/05 23:40:36 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/06 14:30:15 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define SUCCESS 0
 # define FAILURE 1
-# define SCREENHEIGHT 1080
-# define SCREENWIDTH 1920
+# define SCREENHEIGHT 400
+# define SCREENWIDTH 600
 # define PIX 64
 # define X_EVENT_KEY_PRESS 2
 
@@ -70,7 +70,7 @@ typedef struct s_img
 {
 	void	*mlx;
 	void 	*img;
-	char	*data;
+	int		*data;
 	int		bpp;
 	int		size_l;
 	int		endian;
@@ -120,7 +120,6 @@ typedef struct s_window
 	t_rgb			ceiling;
 	t_rgb			floor;
 	t_img			main_image;
-	unsigned int	*buffer;
 }	t_window;
-int check_key(int keycode, t_window *window);
+
 #endif // GlOBAL_H

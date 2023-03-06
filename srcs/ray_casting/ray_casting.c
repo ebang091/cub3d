@@ -27,33 +27,19 @@ void save_wall_texture(t_window *window)
 	
 	for (int i=0 ;i < 4; i++)
 	{
-		
 		window->images.texture[i].img = mlx_xpm_file_to_image(window->mlx, window->images.path[i], &window->images.width[i], &window->images.height[i]);
-		window->images.texture[i].data = mlx_get_data_addr(window->images.texture[i].img, &window->images.texture[i].bpp, &window->images.texture[i].size_l, &window->images.texture[i].endian);
-
+		window->images.texture[i].data =(int *)mlx_get_data_addr(window->images.texture[i].img, &window->images.texture[i].bpp, &window->images.texture[i].size_l, &window->images.texture[i].endian);
 	}
 }
 
-void	initial_malloc(t_window *window)
-{
-	window->buffer = (unsigned int *)malloc(sizeof(unsigned int)*SCREENHEIGHT * SCREENWIDTH + 1);
-	if(!window->buffer)
-		exit_error("Error\nmalloc failed");
-}
-//utils
+// void	initial_malloc(t_window *window)
+// {
+// 	window->buffer = (unsigned int *)malloc(sizeof(unsigned int)*SCREENHEIGHT * SCREENWIDTH + 1);
+// 	if(!window->buffer)
+// 		exit_error("Error\nmalloc failed");
+// }
+// //utils
 
-void	draw_line(t_window *window, unsigned int *line, int drawstart, int drawend, int col)
-{
-	
-	int	i;
-	// int	j;
-
-	i = drawstart-1;
-	while (++i < drawend)
-	{
-		window->buffer[i * SCREENWIDTH + col] = line[i * SCREENWIDTH + col];
-	}
-}
 
 int	make_bits_rgb(int r, int g, int b)
 {
@@ -65,10 +51,11 @@ int	make_bits_rgb(int r, int g, int b)
 
 void  my_mlx_pixel_put(t_img *image, int x, int y, int color)
 {
-  char *dst;
+	int *dst;
 
-  dst = image->data + (y * image->size_l + x * (image->bpp / 8));
-  *(unsigned int*)dst = color;
+	dst = image->data + (y * SCREENWIDTH + x);
+  	*(unsigned int*)dst = color;
+	printf("%c ", *dst);
 }
 
 
@@ -110,34 +97,39 @@ void	draw_background(t_window *window)
 	// free(line);
 }
 
-void ready_window(t_window *window)
-{
-	initial_malloc(window);
-	save_wall_texture(window);
-}
+// void ready_window(t_window *window)
+// {
+// 	// initial_malloc(window);
+// 	// save_wall_texture(window);
+// }
 
 
 int ray_casting(t_window *window)
 {
-	printf("how");
 	
-	
-	// void  my_mlx_pixel_put(t_data *data, int x, int y, int color)
-	for(int i=0; i < SCREENHEIGHT; i++)
-	{
-		for(int j = 0; j < SCREENWIDTH; j++)
-			my_mlx_pixel_put(&window->main_image, j,i,window->floor.color );
-	}
+	// mlx_clear_window(window->mlx, window->win);
+	// void  my_mlx_pixel_put(t_data *data, int x, int y, int color);
+	// for(int i=0; i < SCREENHEIGHT; i++)
+	// {
+	// 	for(int j = 0; j < SCREENWIDTH; j++)
+	// 		window->main_image.data[i * SCREENWIDTH + j] = 0x00FF00;
+	// }
 
 	// save_buffer_to_image_addr (window->main_image, window->buffer);
-	
-	mlx_put_image_to_window(window->mlx, window->win, window->main_image.img, 0,0);
 
-	
+	window->main_image.img = mlx_xpm_file_to_image(window->mlx, window->images.path[0], &window->images.width[0], &window->images.height[0]);
+	window->main_image.data = (int *)mlx_get_data_addr(window->main_image.img, &window->main_image.bpp, &window->main_image.size_l, &window->main_image.endian );
+	// window->main_image.img = mlx_xpm_to_image(window->mlx, )
+	mlx_put_image_to_window(window->mlx, window->win, window->main_image.img, 0,0);
 	
 	return (0);
 }
 
+int key_exit(void)
+{
+	exit(0);
+	return (0);
+}
 // void draw_img(int x, int y, char type, t_window *window)
 // {
 // 	int color;
@@ -178,7 +170,6 @@ int check_key(int keycode, t_window *window)
 	else if(keycode == KEY_LEFT || keycode == KEY_RIGHT)
 		view_rotate(window, keycode);
 	
-	// draw_map(window);
 	return (0);
 }
 
