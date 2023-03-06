@@ -6,7 +6,7 @@
 /*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 22:05:11 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:13:05 by baekgang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define SUCCESS 0
 # define FAILURE 1
+# define SCREENWIDTH 640
+# define SCREENHEIGHT 640
 
 enum e_keys
 {

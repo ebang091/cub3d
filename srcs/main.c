@@ -6,7 +6,7 @@
 /*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/04 00:18:58 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:51:26 by baekgang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	if (check_window(&window) == FAILURE)
 	 	return (FAILURE);
+	run(&window);
 //	print_window(window);
 	return (SUCCESS);
 }
@@ -39,7 +40,7 @@ static int	check_arguments(char **argv)
 	int	len;
 
 	len = (int)ft_strlen(argv[1]);
-	if (ft_strncmp(argv[1] + len - 4, ".cub", 4) != 0)
+	if (len > 4 && ft_strncmp(argv[1] + len - 4, ".cub", 4) != 0)
 		return (FAILURE);
 	return (SUCCESS);
 }
