@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include "global.h"
+#include <math.h>
 #include "../utils/error.h"
 #include "../libft/libft.h"
 #include "../../mlx/mlx.h"
@@ -10,12 +11,17 @@
 int check_key(int keycode, t_window *window);
 void key_down(t_window *window);
 void key_up(t_window *window);
+void key_left(t_window *window);
+void key_right(t_window *window);
 void view_rotate(t_window *window, int keycode);
 
-void get_direction_vector(t_window *window);
-void draw_img(int x, int y, char type, t_window *window);
-int ray_casting(t_window *window);
-// void ready_window(t_window *window);
-int	make_bits_rgb(int r, int g, int b);
+int check_key(int keycode, t_window *window);
+int loop_function(t_window *window);
 int	key_exit(void);
+
+void ready_loop(t_window *window);
+
+void	draw_background(t_window *window);
+void ray_casting(t_window *window);
+
 #endif

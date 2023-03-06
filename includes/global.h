@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/06 14:30:15 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/06 17:20:38 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ typedef struct s_map
 
 typedef struct s_img
 {
-	void	*mlx;
-	void 	*img;
-	int		*data;
-	int		bpp;
-	int		size_l;
-	int		endian;
+	void			*win;
+	void			*mlx;
+	void 			*img;
+	unsigned int	*data;
+	int				bpp;
+	int				size_l;
+	int				endian;
 }	t_img;
 
 typedef struct s_images
@@ -110,8 +111,6 @@ typedef struct s_rgb
 
 typedef struct s_window
 {
-	void			*mlx;
-	void			*win;
 	int				win_height;
 	int				win_width;
 	t_map			map;
@@ -120,6 +119,7 @@ typedef struct s_window
 	t_rgb			ceiling;
 	t_rgb			floor;
 	t_img			main_image;
+	int				**buffer;
 }	t_window;
 
 #endif // GlOBAL_H

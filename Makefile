@@ -28,7 +28,7 @@ RAY_CASTING_DIR		:=	ray_casting
 SRCS				:=	$(addprefix $(SRC_DIR)/, main.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(SET_WINDOW_DIR)/, set_window.c set_images_rgb_map.c utils_0.c utils_1.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(UTILS_DIR)/, error.c get_next_line.c get_next_line_utils.c)
-SRCS				+=	$(addprefix $(SRC_DIR)/$(RAY_CASTING_DIR)/, ray_casting.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(RAY_CASTING_DIR)/, ray_casting.c key_hook.c loop.c loop_utils.c ready_loop.c)
 OBJS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(OBJ_DIR)/%.o, $(SRCS))
 DEPS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(DEP_DIR)/%.d, $(SRCS))
 # ---------------------------------------------------------------------------- #

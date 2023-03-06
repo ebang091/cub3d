@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/06 14:31:02 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/06 17:46:23 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,13 @@ int	main(int argc, char **argv)
 		return (ft_put_error("fail\n"));
 	print_window(window);
 	
+	ready_loop(&window);
 	
-	// window.floor.color = make_bits_rgb(window.floor.r, window.floor.b, window.floor.b);
-	// get_direction_vector(&window);
-	printf("start!\n");
-	// ready_window(&window);
+	mlx_hook(window.main_image.win, 17, 0, key_exit, &window);
+	mlx_hook(window.main_image.win, X_EVENT_KEY_PRESS, 0, check_key, &window);
+	mlx_loop_hook(window.main_image.win, loop_function, &window);
 	
-	mlx_hook(window.win, 17, 0, key_exit, &window);
-	mlx_hook(window.win, X_EVENT_KEY_PRESS, 0, check_key, &window);
-	mlx_loop_hook(window.win, ray_casting, &window);
-	if(window.mlx == 0)
-		{
-			printf("wrong mlx!\n");
-			return (0);
-		}
-	mlx_loop(window.mlx);
+	mlx_loop(window.main_image.mlx);
 	return (0);
 }
 
@@ -58,7 +50,7 @@ static int	check_arguments(char **argv)
 	int	len;
 
 	len = (int)ft_strlen(argv[1]);
-	if (ft_strncmp(argv[1] + len - 4, ".cub", 4) != 0)
+	if (len <= 4 || ft_strncmp(argv[1] + len - 4, ".cub", 4) != 0)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -66,13 +58,12 @@ static int	check_arguments(char **argv)
 static void	init_window(t_window *window)
 {
 	
-	window->mlx = mlx_init();
-	window->win = mlx_new_window(window->mlx, SCREENWIDTH,
-			SCREENHEIGHT, "cub_3d");
-	window->main_image.img = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
-	// window->main_image.data = (int *)mlx_get_data_addr(window->main_image.img, &window->main_image.bpp, &window->main_image.size_l, &window->main_image.endian);
-	printf("size of addr: %lu\n", sizeof(window->main_image.data));
-	printf("%p %p\n", window->main_image.img, window->main_image.data);
+	window->main_image.mlx = mlx_init();
+	if(window->main_image.mlx == 0)
+		exit_error("Error\n mlx failed.\n");
+	window->main_image.win = mlx_new_window(window->main_image.mlx, SCREENWIDTH, SCREENHEIGHT, "CUB_3D");
+	window->main_image.img = mlx_new_image(window->main_image.mlx, SCREENWIDTH, SCREENHEIGHT);
+	window->main_image.data = (unsigned int*)mlx_get_data_addr(window->main_image.img, &window->main_image.bpp, &window->main_image.size_l, &window->main_image.endian);
 	window->player.pos_x = -1;
 	window->player.pos_y = -1;
 	window->player.direction = -1;
