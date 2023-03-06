@@ -16,6 +16,7 @@
 		"error.h": "c",
 		"stdbool.h": "c",
 		"fcntl.h": "c",
-		"check_window.h": "c"
+		"check_window.h": "c",
+		"__config": "cpp"
 	}
 }
