@@ -2,7 +2,7 @@
 #   Define the compiler and flags                                              #
 # ---------------------------------------------------------------------------- #
 CC					:=	cc
-CFLAGS				:=	-Wall -Wextra -Werror -O2 -pipe 
+CFLAGS				:=	-Wall -Wextra -Werror -O2 -pipe -fsanitize=address
 CPPFLAGS			:=	-I includes -I $(libft) -I $(mlx)
 #DEPFLAGS			:=	-MMD -MP -MF $(BUILD_DIR)/$(DEP_DIR)/$*.d
 #LDFLAGS			:=	-L libft/libft.a -L $mlx/mlx.a
@@ -51,7 +51,7 @@ all: $(libft) $(mlx)
 	@$(MAKE) -C $(mlx)
 	@$(MAKE) -j $(NAME)
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -L./mlx -lmlx -framework OpenGl -framework AppKit $^ -o $@ libft/libft.a mlx/libmlx.a
+	@$(CC) $(CFLAGS) -framework OpenGl -framework AppKit $^ -o $@ libft/libft.a mlx/libmlx.a
 	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
 
 $(BUILD_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard
