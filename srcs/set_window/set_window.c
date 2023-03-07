@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:01:22 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 14:48:24 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:58:38 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static int	set_worldmap(t_map *map)
 
 static int	set_player(t_window *window)
 {
-	int			i;
-	int			j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (window->map.worldmap[++i])

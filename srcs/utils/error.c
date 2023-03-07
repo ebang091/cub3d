@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:53:34 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/02 15:04:00 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:25:09 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int ft_put_error(char *str)
 {
-	write(1, str, ft_strlen(str));
+	printf("%s", str);
 	return (FAILURE);
 }
 
 int exit_error(char *str)
 {
-	write(1, str, ft_strlen(str));
+	printf("%s", str);
 	exit (FAILURE);
 }

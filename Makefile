@@ -18,6 +18,7 @@ mlx					:=	mlx
 SRC_DIR				:=	srcs
 SET_WINDOW_DIR		:=	set_window
 CHECK_WINDOW_DIR	:=	check_window
+RUN_CUB3D_DIR		:=	run_cub3d
 UTILS_DIR			:=	utils
 BUILD_DIR			:=	build
 OBJ_DIR				:=	obj
@@ -28,6 +29,7 @@ DEP_DIR				:=	dep
 SRCS				:=	$(addprefix $(SRC_DIR)/, main.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(SET_WINDOW_DIR)/, set_window.c set_path_rgb_map.c utils_0.c utils_1.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(CHECK_WINDOW_DIR)/, check_window.c check_surrounded_by_walls.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(RUN_CUB3D_DIR)/, run_cub3d.c init_cub3d.c draw_cub3d.c key_press.c ray_casting.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(UTILS_DIR)/, error.c get_next_line.c get_next_line_utils.c)
 OBJS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(OBJ_DIR)/%.o, $(SRCS))
 DEPS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(DEP_DIR)/%.d, $(SRCS))
@@ -49,7 +51,7 @@ all: $(libft) $(mlx)
 	@$(MAKE) -C $(mlx)
 	@$(MAKE) -j $(NAME)
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ libft/libft.a mlx/libmlx.a
+	@$(CC) $(CFLAGS) -lmlx -framework OpenGl -framework AppKit $^ -o $@ libft/libft.a mlx/libmlx.a
 	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
 
 $(BUILD_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard
@@ -76,9 +78,9 @@ re: fclean
 	@printf "$(GREEN)[$(NAME)] Cleaned and rebuilt everything!\n$(DEF_COLOR)"
 dir_guard:
 	@mkdir -p $(addprefix $(BUILD_DIR)/$(OBJ_DIR)/, $(SET_WINDOW_DIR) \
-	$(CHECK_WINDOW_DIR) $(UTILS_DIR))
+	$(CHECK_WINDOW_DIR) $(RUN_CUB3D_DIR) $(UTILS_DIR))
 	@mkdir -p $(addprefix $(BUILD_DIR)/$(DEP_DIR)/, $(SET_WINDOW_DIR) \
-	$(CHECK_WINDOW_DIR) $(UTILS_DIR))
+	$(CHECK_WINDOW_DIR) $(RUN_CUB3D_DIR $(UTILS_DIR)))
 norm:
 	@(norminette | grep Error) || (printf "$(GREEN)[$(NAME)] Norminette Success\n$(DEF_COLOR)")
 .PHONY: all clean fclean re dir_guard norm
