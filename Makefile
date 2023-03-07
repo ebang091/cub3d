@@ -72,8 +72,6 @@ fclean:
 	@printf "$(BLUE)[$(NAME)] obj. dep. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
 	@printf "$(CYAN)[$(NAME)] exec. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
 re: fclean
-	@$(MAKE) -C $(libft)
-	@$(MAKE) -C $(data-structures)
 	@$(MAKE) all
 	@printf "$(GREEN)[$(NAME)] Cleaned and rebuilt everything!\n$(DEF_COLOR)"
 dir_guard:

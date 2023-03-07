@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 16:37:16 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:53:51 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_ray {
 	int		step_y;
 	int		hit;
 	int		side;
-	double	wall_dist;
+	double	perp_wall_dist;
 }	t_ray; //추가
 
 typedef struct s_wall {
