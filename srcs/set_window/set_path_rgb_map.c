@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_path_rgb_map.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:58:52 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 16:37:43 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:39:44 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static int	set_rgb(t_window *window, char *line)
 		if (rgb[i] == -1)
 		{
 			free_matrix(rgb_strings);
-			return (ft_put_error("Error\nInvalid rgb element\n"));
+			return (ft_put_error("Error\nInvalid rgb element - set rgb\n"));
 		}
 		++i;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/06 20:25:16 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:15:58 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 #include "check_window/check_window.h"
 #include "run_cub3d/run_cub3d.h"
 #include "utils/error.h"
-
+#include <stdlib.h>
 static int	check_arguments(char **argv);
 static void	init_window(t_window *window);
+
+void check_leak()
+{
+	system("leaks cub3d");
+}
 
 int	main(int argc, char **argv)
 {
 	t_window	window;
 
+	atexit(check_leak);
 	if (argc != 2 || check_arguments(argv) == FAILURE)
 		return (ft_put_error("Error\nInvalid argument\n"));
 	init_window(&window);
@@ -30,7 +36,9 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	if (check_window(&window) == FAILURE)
 		return (FAILURE);
+	init_cub3d(&window);
 	run_cub3d(&window);
+	
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:44 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 19:46:43 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/07 21:41:56 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	draw_cub3d(t_window *window)
 		get_ray_distance(window->vec, &ray, x);
 		get_hit_point_using_dda(window, &ray);
 		get_draw_start_end_point(window->vec, &ray, &wall);
-		map_line(window, wall, x);
+		draw_buffer_one_by_one(window, wall, &ray, x);
 		++x;
 	}
 	draw_window(window);

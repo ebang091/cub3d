@@ -2,7 +2,7 @@
 #   Define the compiler and flags                                              #
 # ---------------------------------------------------------------------------- #
 CC					:=	cc
-CFLAGS				:=	-Wall -Wextra -Werror -O2 -pipe -fsanitize=address
+CFLAGS				:=	-Wall -Wextra -Werror -O2 -pipe 
 CPPFLAGS			:=	-I includes -I $(libft) -I $(mlx)
 #DEPFLAGS			:=	-MMD -MP -MF $(BUILD_DIR)/$(DEP_DIR)/$*.d
 #LDFLAGS			:=	-L libft/libft.a -L $mlx/mlx.a

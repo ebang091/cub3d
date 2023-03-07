@@ -6,7 +6,7 @@
 /*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:16:00 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 19:56:26 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/07 22:28:12 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ void	get_hit_point_using_dda(t_window *window, t_ray *ray)
 			ray->sidedist_x += ray->deltadist_x;
 			ray->map_x += ray->step_x;
 			if (ray->step_x == 1)
-				ray->side = NORTH;
+				ray->side = EAST;
 			else
-				ray->side = SOUTH;
+				ray->side = WEST;
 		}
 		else
 		{
 			ray->sidedist_y += ray->deltadist_y;
 			ray->map_y += ray->step_y;
 			if (ray->step_y == 1)
-				ray->side = WEST;
+				ray->side = SOUTH;
 			else
-				ray->side = EAST;
+				ray->side = NORTH;
 		}
 		if (window->map.worldmap[ray->map_y][ray->map_x] == WALL)
 			ray->hit = 1;
@@ -88,9 +88,9 @@ void	get_draw_start_end_point(t_vec vec, t_ray *ray, t_wall *wall)
 	wall->line_h = (WINDOW_Y / ray->perp_wall_dist);
 	wall->side = ray->side;
 	wall->tex_x = (int)(wall_x * (double)TEXTURE_X);
-	if (((ray->side == NORTH) || (ray->side == SOUTH)) && ray->raydir_x < 0)
+	if ((ray->side == EAST || ray->side == WEST) && ray->raydir_x > 0)
 		wall->tex_x = TEXTURE_X - wall->tex_x - 1;
-	if (((ray->side == WEST) || (ray->side == EAST)) && ray->raydir_y > 0)
+	if ((ray->side == SOUTH || ray->side == NORTH) && ray->raydir_y < 0)
 		wall->tex_x = TEXTURE_X - wall->tex_x - 1;
 	wall->draw_start = -wall->line_h / 2 + WINDOW_Y / 2;
 	if (wall->draw_start < 0)
@@ -103,20 +103,20 @@ void	get_draw_start_end_point(t_vec vec, t_ray *ray, t_wall *wall)
 static double	get_wall_x(t_vec vec, t_ray *ray)
 {
 	double perp_wall_dist;
-	if (ray->side == NORTH || ray->side == SOUTH)
+	if (ray->side == EAST || ray->side == WEST)
 		perp_wall_dist = (ray->map_x - vec.pos_x + \
 			(1 - ray->step_x) / 2) / ray->raydir_x;
 	else
 		perp_wall_dist = (ray->map_y - vec.pos_y + \
 			(1 - ray->step_y) / 2) / ray->raydir_y;
 	ray->perp_wall_dist = perp_wall_dist;
-	if (ray->side == NORTH || ray->side == SOUTH)
+	if (ray->side == EAST || ray->side == WEST)
 		return (vec.pos_y + ray->perp_wall_dist * ray->raydir_y);
 	else
 		return (vec.pos_x + ray->perp_wall_dist * ray->raydir_x);
 }
 
-void	map_line(t_window *window, t_wall wall, int x)
+void	draw_buffer_one_by_one(t_window *window, t_wall wall, t_ray *ray, int x)
 {
 	double	step;
 	double	tex_pos;
@@ -131,7 +131,8 @@ void	map_line(t_window *window, t_wall wall, int x)
 	{
 		tex_y = (int)tex_pos & (TEXTURE_Y - 1);
 		tex_pos += step;
-		color = window->texture[wall.side][TEXTURE_X * tex_y + wall.tex_x];
+		color = window->texture[ray->side][TEXTURE_Y * tex_y + wall.tex_x];
+		if(ray->side == WEST || ray->side == SOUTH) color = (color >> 1) & 8355711;
 		window->temp[i][x] = color;
 		i++;
 	}
