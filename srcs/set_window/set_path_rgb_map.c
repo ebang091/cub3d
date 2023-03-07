@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:58:52 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 14:58:52 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:37:43 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static int	check_type(t_window *window, char *line)
 {
 	if (line[0] == '\n')
 		return (NEW_LINE);
-	else if (ft_strncmp(line, "NO ", 3) == 0 && window->map.height == 0)
-		return (set_path_type(window, NORTH));
-	else if (ft_strncmp(line, "SO ", 3) == 0 && window->map.height == 0)
-		return (set_path_type(window, SOUTH));
-	else if (ft_strncmp(line, "WE ", 3) == 0 && window->map.height == 0)
-		return (set_path_type(window, WEST));
 	else if (ft_strncmp(line, "EA ", 3) == 0 && window->map.height == 0)
 		return (set_path_type(window, EAST));
+	else if (ft_strncmp(line, "WE ", 3) == 0 && window->map.height == 0)
+		return (set_path_type(window, WEST));
+	else if (ft_strncmp(line, "SO ", 3) == 0 && window->map.height == 0)
+		return (set_path_type(window, SOUTH));
+	else if (ft_strncmp(line, "NO ", 3) == 0 && window->map.height == 0)
+		return (set_path_type(window, NORTH));
 	else if ((line[0] == 'F' || line[0] == 'C') && window->map.height == 0)
 		return (RGB);
 	else if (is_map_line(line) == true)

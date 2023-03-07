@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/06 20:03:57 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:37:16 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ enum e_keys
 
 enum e_directions
 {
-	NORTH = 0,
-	SOUTH = 1,
-	WEST = 2,
-	EAST = 3
+	EAST = 0,
+	WEST = 1,
+	SOUTH = 2,
+	NORTH = 3
 };
 
 enum e_objects
