@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 17:37:59 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/02 15:04:02 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/08 00:36:36 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils/get_next_line.h"
+#include "../../includes/utils/get_next_line.h"
 
 void	backup_init(char **backup)
 {
