@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:26:16 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/04 00:13:10 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:19:41 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	check_path(t_window *window)
 static int	check_rgb(t_window *window)
 {
 	if (window->floor.r == -1 || window->ceiling.r == -1)
-		return (ft_put_error("Error\nInvalid rgb element\n"));
+		return (ft_put_error("Error\n - check\n"));
 	return (SUCCESS);
 }
 

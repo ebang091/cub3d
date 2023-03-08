@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cub3d.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:11:41 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/06 20:21:40 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:15:42 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ int		key_press(int keycode, t_window *winodw);
 int		close_win(t_window *window);
 
 // ray_casting.c
-void	set_ray(t_vec vec, t_ray *ray, int x);
-void	calc_ray(t_vec vec, t_ray *ray, int x);
-void	dda(t_window *window, t_ray *ray);
-double	calc_dis(t_vec vec, t_ray *ray);
-void	calc_wall(t_vec vec, t_ray *ray, t_wall *wall);
-void	map_line(t_window *window, t_wall wall, int x);
-
+void	init_cub3d(t_window *window);
+void	get_ray_distance(t_vec vec, t_ray *ray, int x);
+void	get_hit_point_using_dda(t_window *window, t_ray *ray);
+void	get_draw_start_end_point(t_vec vec, t_ray *ray, t_wall *wall);
+void	draw_buffer_one_by_one(t_window *window, t_wall wall, t_ray *ray, int x);
 #endif // RUN_CUB3D_H

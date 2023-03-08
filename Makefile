@@ -51,7 +51,7 @@ all: $(libft) $(mlx)
 	@$(MAKE) -C $(mlx)
 	@$(MAKE) -j $(NAME)
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -lmlx -framework OpenGl -framework AppKit $^ -o $@ libft/libft.a mlx/libmlx.a
+	@$(CC) $(CFLAGS) -framework OpenGl -framework AppKit $^ -o $@ libft/libft.a mlx/libmlx.a
 	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
 
 $(BUILD_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard
@@ -72,8 +72,6 @@ fclean:
 	@printf "$(BLUE)[$(NAME)] obj. dep. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
 	@printf "$(CYAN)[$(NAME)] exec. files$(DEF_COLOR)$(GREEN)  => Cleaned!\n$(DEF_COLOR)"
 re: fclean
-	@$(MAKE) -C $(libft)
-	@$(MAKE) -C $(data-structures)
 	@$(MAKE) all
 	@printf "$(GREEN)[$(NAME)] Cleaned and rebuilt everything!\n$(DEF_COLOR)"
 dir_guard:

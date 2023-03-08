@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:18:51 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/06 20:57:20 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:45:18 by ebang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 static void	init_vec(t_window *winidow);
 static void	init_temp(t_window *window);
 static void	init_texture(t_window *window);
-static void	xpm_to_img(t_window *window, char *path, int direction);
+static void	save_image_as_xpm(t_window *window, char *path, int direction);
 
 void	init_cub3d(t_window *window)
 {
+	window->mlx = mlx_init();
+	window->win = mlx_new_window(window->mlx, WINDOW_X, WINDOW_Y, "cub3d");
 	init_vec(window);
 	init_temp(window);
 	init_texture(window);
+	window->img.img_ptr = mlx_new_image(window->mlx, \
+		WINDOW_X, WINDOW_Y);
+	window->img.data = (unsigned int *)mlx_get_data_addr(window->img.img_ptr, \
+		&window->img.bpp, &window->img.size_l, &window->img.endian);
 }
 
 static void	init_vec(t_window *window)
@@ -84,16 +90,12 @@ static void	init_texture(t_window *window)
 			exit_error("Error\nFailed memory allocation\n");
 		ft_memset(window->texture[direction], 0, \
 			sizeof(int) * TEXTURE_X * TEXTURE_Y);
-		xpm_to_img(window, window->images.path[direction], direction);
+		save_image_as_xpm(window, window->images.path[direction], direction);
 		++direction;
 	}
-	window->img.img_ptr = mlx_new_image(window->mlx, \
-		WINDOW_X, WINDOW_Y);
-	window->img.data = (unsigned int *)mlx_get_data_addr(window->img.img_ptr, \
-		&window->img.bpp, &window->img.size_l, &window->img.endian);
 }
 
-static void	xpm_to_img(t_window *window, char *path, int direction)
+static void	save_image_as_xpm(t_window *window, char *path, int direction)
 {
 	t_img	img;
 	int		width;
