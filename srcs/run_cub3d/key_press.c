@@ -6,7 +6,7 @@
 /*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:53:46 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 18:11:58 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/08 18:15:43 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	key_press(int keycode, t_window *window)
 int	close_win(t_window *window)
 {
 	mlx_clear_window(window->mlx, window->win);
+	// mlx_destroy_image(window->mlx, window->img.img_ptr);
 	mlx_destroy_window(window->mlx, window->win);
 	exit(0);
 }
