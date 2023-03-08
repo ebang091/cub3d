@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 22:47:45 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/08 18:23:54 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@
 
 enum e_keys
 {
-	KEY_RELEASE = 3,
 	KEY_PRESS = 2,
 	X_BUTTON = 17,
-	KEY_MAP = 10,
 	KEY_ESC = 53,
 	KEY_W = 13,
 	KEY_A = 0,
@@ -93,7 +91,7 @@ typedef struct s_img
 	int				size_l;
 	int				endian;
 	unsigned int	*data;
-}	t_img; // 추가
+}	t_img;
 
 typedef struct s_vec {
 	double	pos_x;
@@ -102,7 +100,7 @@ typedef struct s_vec {
 	double	dir_y;
 	double	pln_x;
 	double	pln_y;
-}	t_vec; // 추가
+}	t_vec;
 
 typedef struct s_ray {
 	double	cam_x;
@@ -119,7 +117,7 @@ typedef struct s_ray {
 	int		hit;
 	int		side;
 	double	perp_wall_dist;
-}	t_ray; //추가
+}	t_ray;
 
 typedef struct s_wall {
 	int	side;
@@ -127,7 +125,7 @@ typedef struct s_wall {
 	int	line_h;
 	int	draw_start;
 	int	draw_end;
-}	t_wall; //추가
+}	t_wall;
 
 typedef struct s_window
 {
@@ -138,12 +136,10 @@ typedef struct s_window
 	t_player	player;
 	t_rgb		ceiling;
 	t_rgb		floor;
-
-	// 추가
 	int			**temp;
 	int			*texture[4];
 	t_img		img;
 	t_vec		vec;
 }	t_window;
 
-#endif // GlOBAL_H
+#endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_window.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:20 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/04 00:12:44 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:23:26 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdbool.h>
 
 # include "global.h"
-# include "../libft/libft.h"
+# include "libft.h"
 # include "utils/error.h"
 # include "utils/get_next_line.h"
 
@@ -48,4 +48,4 @@ int		atoi_rgb(const char *str);
 int		set_rgb_strings(t_window *window, int **rgb, \
 		char ***rgb_strings, char *line);
 
-#endif // SET_WINDOW_H
+#endif

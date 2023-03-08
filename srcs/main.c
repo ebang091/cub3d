@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 22:39:01 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/08 17:33:40 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "check_window/check_window.h"
 #include "run_cub3d/run_cub3d.h"
 #include "utils/error.h"
-#include <stdlib.h>
+
 static int	check_arguments(char **argv);
 static void	init_window(t_window *window);
 
@@ -38,7 +38,6 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	init_cub3d(&window);
 	run_cub3d(&window);
-	
 	return (SUCCESS);
 }
 

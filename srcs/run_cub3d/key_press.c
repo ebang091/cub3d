@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:53:46 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 16:17:51 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/08 18:25:40 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cub3d/run_cub3d.h"
 
-static void move_front_or_back(t_window *window, double opt);
-static void move_left_or_right(t_window *window, double opt);
+static void	move_front_or_back(t_window *window, double opt);
+static void	move_left_or_right(t_window *window, double opt);
 static void	rotate(t_window *window, int opt);
 
 int	key_press(int keycode, t_window *window)
@@ -38,7 +38,6 @@ int	key_press(int keycode, t_window *window)
 int	close_win(t_window *window)
 {
 	mlx_clear_window(window->mlx, window->win);
-	// mlx_destroy_image(window->mlx, window->img.img_ptr);
 	mlx_destroy_window(window->mlx, window->win);
 	exit(0);
 }
