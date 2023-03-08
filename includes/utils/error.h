@@ -6,7 +6,7 @@
 /*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:55:13 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 15:45:53 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/08 18:24:05 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include "global.h"
 
 int	ft_put_error(char *str);

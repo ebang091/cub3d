@@ -6,7 +6,7 @@
 /*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:11:41 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 17:19:04 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/08 18:23:19 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 # include <math.h>
 
 # include "global.h"
-# include <mlx.h>
-# include "../mlx/mlx.h"
+# include "mlx.h"
 # include "utils/error.h"
 
 // run_cub3d.c

@@ -6,7 +6,7 @@
 /*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 17:17:42 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/08 18:23:54 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@
 
 enum e_keys
 {
-	KEY_RELEASE = 3,
 	KEY_PRESS = 2,
 	X_BUTTON = 17,
-	KEY_MAP = 10,
 	KEY_ESC = 53,
 	KEY_W = 13,
 	KEY_A = 0,
