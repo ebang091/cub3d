@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:26:16 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 22:19:41 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/08 15:49:21 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_rgb(t_window *window)
 static int	check_map(t_window *window)
 {
 	if (check_edge(window->map) == FAILURE || \
-		check_surrounded_by_walls(window->map) == FAILURE )
+		check_surrounded_by_walls(window->map) == FAILURE)
 	{
 		free_matrix(window->map.worldmap);
 		return (ft_put_error("Error\nInvalid map element\n"));

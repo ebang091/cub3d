@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:44 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 22:47:53 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/08 17:59:33 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	draw_floor_ceiling(t_window *window);
 static void	draw_window(t_window *window);
+void		draw_buffer_one(t_window *window, t_wall wall, t_ray *ray, int x);
 
 int	draw_cub3d(t_window *window)
 {
@@ -28,7 +29,7 @@ int	draw_cub3d(t_window *window)
 		get_ray_distance(window->vec, &ray, x);
 		get_hit_point_using_dda(window, &ray);
 		get_draw_start_end_point(window->vec, &ray, &wall);
-		draw_buffer_one_by_one(window, wall, &ray, x);
+		draw_buffer_one(window, wall, &ray, x);
 		++x;
 	}
 	draw_window(window);
@@ -78,4 +79,27 @@ static void	draw_window(t_window *window)
 	}
 	mlx_put_image_to_window(window->mlx, window->win, \
 		window->img.img_ptr, 0, 0);
+}
+
+void	draw_buffer_one(t_window *window, t_wall wall, t_ray *ray, int x)
+{
+	double	step;
+	double	tex_pos;
+	int		i;
+	int		tex_y;
+	int		color;
+
+	step = 1.0 * TEXTURE_Y / wall.line_h;
+	tex_pos = (wall.draw_start - WINDOW_Y / 2 + wall.line_h / 2) * step;
+	i = wall.draw_start;
+	while (i <= wall.draw_end)
+	{
+		tex_y = (int)tex_pos & (TEXTURE_Y - 1);
+		tex_pos += step;
+		color = window->texture[ray->side][TEXTURE_X * tex_y + wall.tex_x];
+		if (ray->side == WEST || ray->side == SOUTH)
+			color = (color >> 1) & 8355711;
+		window->temp[i][x] = color;
+		i++;
+	}
 }

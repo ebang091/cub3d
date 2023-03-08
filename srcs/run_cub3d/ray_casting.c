@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:16:00 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 22:41:09 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/08 15:44:41 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cub3d/run_cub3d.h"
 
-static void	set_ray(t_vec vec, t_ray *ray, int x);
+static void		set_ray(t_vec vec, t_ray *ray, int x);
 static double	get_wall_x(t_vec vec, t_ray *ray);
 
 void	get_ray_distance(t_vec vec, t_ray *ray, int x)
@@ -88,7 +88,7 @@ void	get_draw_start_end_point(t_vec vec, t_ray *ray, t_wall *wall)
 	wall->line_h = (WINDOW_Y / ray->perp_wall_dist);
 	wall->side = ray->side;
 	wall->tex_x = (int)(wall_x * (double)TEXTURE_X);
-	if(ray->side == SOUTH)
+	if (ray->side == SOUTH)
 		wall->tex_x = TEXTURE_X - wall->tex_x - 1;
 	wall->draw_start = -wall->line_h / 2 + WINDOW_Y / 2;
 	if (wall->draw_start < 0)
@@ -100,7 +100,8 @@ void	get_draw_start_end_point(t_vec vec, t_ray *ray, t_wall *wall)
 
 static double	get_wall_x(t_vec vec, t_ray *ray)
 {
-	double perp_wall_dist;
+	double	perp_wall_dist;
+
 	if (ray->side == EAST || ray->side == WEST)
 		perp_wall_dist = (ray->map_x - vec.pos_x + \
 			(1 - ray->step_x) / 2) / ray->raydir_x;
@@ -112,26 +113,4 @@ static double	get_wall_x(t_vec vec, t_ray *ray)
 		return (vec.pos_y + ray->perp_wall_dist * ray->raydir_y);
 	else
 		return (vec.pos_x + ray->perp_wall_dist * ray->raydir_x);
-}
-
-void	draw_buffer_one_by_one(t_window *window, t_wall wall, t_ray *ray, int x)
-{
-	double	step;
-	double	tex_pos;
-	int		i;
-	int		tex_y;
-	int		color;
-
-	step = 1.0 * TEXTURE_Y / wall.line_h;
-	tex_pos = (wall.draw_start - WINDOW_Y / 2 + wall.line_h / 2) * step;
-	i = wall.draw_start;
-	while (i <= wall.draw_end)
-	{
-		tex_y = (int)tex_pos & (TEXTURE_Y - 1);
-		tex_pos += step;
-		color = window->texture[ray->side][TEXTURE_X * tex_y + wall.tex_x];
-		if(ray->side == WEST) color = (color >> 1) & 8355711;
-		window->temp[i][x] = color;
-		i++;
-	}
 }

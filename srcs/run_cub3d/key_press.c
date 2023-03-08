@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:53:46 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 13:52:23 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/08 18:11:58 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cub3d/run_cub3d.h"
 
-static void move_front_or_back(t_window *window, double opt);
-static void move_left_or_right(t_window *window, double opt);
+static void	move_front_or_back(t_window *window, double opt);
+static void	move_left_or_right(t_window *window, double opt);
 static void	rotate(t_window *window, int opt);
 
 int	key_press(int keycode, t_window *window)
@@ -63,6 +63,7 @@ static void	move_left_or_right(t_window *window, double opt)
 	double	des_x;
 	double	des_y;
 
+	vec = window->vec;
 	des_x = vec.pos_x + vec.pln_x * (double)MOVE_SPEED / 10 * opt;
 	des_y = vec.pos_y + vec.pln_y * (double)MOVE_SPEED / 10 * opt;
 	if (window->map.worldmap[(int)vec.pos_y][(int)des_x] == '0')
