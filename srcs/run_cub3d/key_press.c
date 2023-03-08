@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:53:46 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 13:52:23 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/08 16:17:51 by eunjungbang      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	key_press(int keycode, t_window *window)
 int	close_win(t_window *window)
 {
 	mlx_clear_window(window->mlx, window->win);
+	// mlx_destroy_image(window->mlx, window->img.img_ptr);
 	mlx_destroy_window(window->mlx, window->win);
 	exit(0);
 }
@@ -63,6 +64,7 @@ static void	move_left_or_right(t_window *window, double opt)
 	double	des_x;
 	double	des_y;
 
+	vec = window->vec;
 	des_x = vec.pos_x + vec.pln_x * (double)MOVE_SPEED / 10 * opt;
 	des_y = vec.pos_y + vec.pln_y * (double)MOVE_SPEED / 10 * opt;
 	if (window->map.worldmap[(int)vec.pos_y][(int)des_x] == '0')
