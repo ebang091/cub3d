@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:16:00 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/09 16:26:35 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:55:43 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ static void	init_ray(t_vec vec, t_ray *ray, int x)
 	ray->deltadist_y = fabs(1 / ray->raydir_y);
 	ray->hit = 0;
 }
-
 
 static double	get_wall_x(t_vec vec, t_ray *ray)
 {

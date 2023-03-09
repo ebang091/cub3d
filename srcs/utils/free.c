@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:47:35 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/09 16:01:45 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:55:55 by yeselee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	free_window(t_window *window)
 	free_path(window->path);
 }
 
-
 static void	free_path(char	*path[4])
 {
 	int	i;
@@ -51,4 +50,3 @@ static void	free_path(char	*path[4])
 		++i;
 	}
 }
-
