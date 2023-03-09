@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:44 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/09 11:27:25 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:26:35 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ static void	draw_buffer_one(t_window *window, t_wall wall, t_ray *ray, int x)
 	int		tex_y;
 	int		color;
 
-	step = 1.0 * TEXTURE_Y / wall.line_h;
+	step = 1.0 * TEXTURE_SIZE / wall.line_h;
 	tex_pos = (wall.draw_start - WINDOW_Y / 2 + wall.line_h / 2) * step;
 	i = wall.draw_start;
 	while (i <= wall.draw_end)
 	{
-		tex_y = (int)tex_pos & (TEXTURE_Y - 1);
+		tex_y = (int)tex_pos & (TEXTURE_SIZE - 1);
 		tex_pos += step;
-		color = window->texture[ray->side][TEXTURE_X * tex_y + wall.tex_x];
+		color = window->texture[ray->side][TEXTURE_SIZE * tex_y + wall.tex_x];
 		if (ray->side == WEST || ray->side == SOUTH)
 			color = (color >> 1) & 8355711;
 		window->temp[i][x] = color;

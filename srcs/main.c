@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/09 11:10:01 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:26:52 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,10 @@
 static int	check_arguments(char **argv);
 static void	init_window(t_window *window);
 
-void check_leak()
-{
-	system("leaks cub3d");
-}
-
 int	main(int argc, char **argv)
 {
 	t_window	window;
 
-	atexit(check_leak);
 	if (argc != 2 || check_arguments(argv) == FAILURE)
 		return (print_error("Invalid argument\n"));
 	init_window(&window);

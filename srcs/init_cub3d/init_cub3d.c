@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:18:51 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/09 10:59:28 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:26:35 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ static void	init_texture(t_window *window)
 	while (direction < 4)
 	{
 		window->texture[direction] = \
-			malloc(sizeof(int) * TEXTURE_X * TEXTURE_Y);
+			malloc(sizeof(int) * TEXTURE_SIZE * TEXTURE_SIZE);
 		if (window->texture[direction] == NULL)
 			exit_error("Failed memory allocation\n");
 		ft_memset(window->texture[direction], 0, \
-			sizeof(int) * TEXTURE_X * TEXTURE_Y);
+			sizeof(int) * TEXTURE_SIZE * TEXTURE_SIZE);
 		save_image_as_xpm(window, window->path[direction], direction);
 		++direction;
 	}

@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/09 16:04:41 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:28:19 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ enum e_size
 {
 	WINDOW_X = 1920,
 	WINDOW_Y = 1080,
-	TEXTURE_X = 64,
-	TEXTURE_Y = 64
+	TEXTURE_SIZE = 64
 };
 
 enum e_directions

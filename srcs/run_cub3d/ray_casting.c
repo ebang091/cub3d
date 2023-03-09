@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:16:00 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/09 11:31:41 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:26:35 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	get_draw_start_end_point(t_vec vec, t_ray *ray, t_wall *wall)
 	wall_x -= floor(wall_x);
 	wall->line_h = (WINDOW_Y / ray->perp_wall_dist);
 	wall->side = ray->side;
-	wall->tex_x = (int)(wall_x * (double)TEXTURE_X);
+	wall->tex_x = (int)(wall_x * (double)TEXTURE_SIZE);
 	if (ray->side == SOUTH)
-		wall->tex_x = TEXTURE_X - wall->tex_x - 1;
+		wall->tex_x = TEXTURE_SIZE - wall->tex_x - 1;
 	wall->draw_start = -wall->line_h / 2 + WINDOW_Y / 2;
 	if (wall->draw_start < 0)
 		wall->draw_start = 0;
