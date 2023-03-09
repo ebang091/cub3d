@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:01:22 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/06 17:58:38 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:02:00 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ int	set_window(t_window *window, char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (ft_put_error("Error\nInvalid argument\n"));
-	if (set_path_rgb_map(window, fd) == FAILURE)
+		return (print_error("Invalid argument\n"));
+	if (set_path_rgb_map(window, fd) == FAILURE || \
+		set_worldmap(&window->map) == FAILURE || \
+		set_player(window) == FAILURE)
+	{
+		free_window(window);
 		return (FAILURE);
-	if (set_worldmap(&window->map) == FAILURE)
-		return (FAILURE);
-	if (set_player(window) == FAILURE)
-		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -37,17 +38,17 @@ static int	set_worldmap(t_map *map)
 	int		i;
 
 	if (map->height == 0)
-		return (ft_put_error("Error\nIs no map\n"));
+		return (print_error("Is no map\n"));
 	temp_map = map->worldmap;
 	map->worldmap = (char **) malloc(sizeof(char *) * (map->height + 1));
 	if (map->worldmap == NULL)
-		exit_error("Error\nFailed memory allocation\n");
+		exit_error("Failed memory allocation\n");
 	i = 0;
 	while (i < map->height)
 	{
 		map->worldmap[i] = (char *) malloc(sizeof(char) * (map->width + 1));
 		if (map->worldmap[i] == NULL)
-			exit_error("Error\nFailed memory allocation\n");
+			exit_error("Failed memory allocation\n");
 		ft_memset(map->worldmap[i], EMPTY, map->width);
 		ft_memcpy(map->worldmap[i], temp_map[i], ft_strlen(temp_map[i]));
 		map->worldmap[i][map->width] = '\0';
@@ -72,7 +73,7 @@ static int	set_player(t_window *window)
 			if (is_direction(window->map.worldmap[i][j]) == true)
 			{
 				if (window->player.direction != 0)
-					return (ft_put_error("Error\nIs no one player\n"));
+					return (print_error("Is no one player\n"));
 				window->player.pos_x = j;
 				window->player.pos_y = i;
 				window->player.direction = window->map.worldmap[i][j];
@@ -81,6 +82,6 @@ static int	set_player(t_window *window)
 		}
 	}
 	if (window->player.direction == 0)
-		return (ft_put_error("Error\nIs no player\n"));
+		return (print_error("Is no player\n"));
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:44 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 17:59:33 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/09 11:27:25 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	draw_floor_ceiling(t_window *window);
 static void	draw_window(t_window *window);
-void		draw_buffer_one(t_window *window, t_wall wall, t_ray *ray, int x);
+static void	draw_buffer_one(t_window *window, t_wall wall, t_ray *ray, int x);
 
 int	draw_cub3d(t_window *window)
 {
@@ -81,7 +81,7 @@ static void	draw_window(t_window *window)
 		window->img.img_ptr, 0, 0);
 }
 
-void	draw_buffer_one(t_window *window, t_wall wall, t_ray *ray, int x)
+static void	draw_buffer_one(t_window *window, t_wall wall, t_ray *ray, int x)
 {
 	double	step;
 	double	tex_pos;

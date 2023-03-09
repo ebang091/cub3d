@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_surrounded_by_walls.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baekgang <baekgang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:40:36 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/04 00:55:38 by baekgang         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:42:58 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ static char	**init_visited(t_map map)
 	i = 0;
 	matrix = (char **) malloc(sizeof(char *) * (map.height + 1));
 	if (matrix == NULL)
-		exit_error("Error\nFailed memory allocation\n");
+		exit_error("Failed memory allocation\n");
 	while (i < map.height)
 	{
 		matrix[i] = (char *) malloc(sizeof(char) * map.width);
 		if (matrix[i] == NULL)
-			exit_error("Error\nFailed memory allocation\n");
+			exit_error("Failed memory allocation\n");
 		ft_memset(matrix[i], 'X', map.width);
 		i++;
 	}

@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   init_cub3d.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 14:55:13 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/09 11:02:16 by seunghwk         ###   ########.fr       */
+/*   Created: 2023/03/09 11:00:29 by seunghwk          #+#    #+#             */
+/*   Updated: 2023/03/09 11:04:21 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef INIT_CUB3D_H
+# define INIT_CUB3D_H
 
-# include <stdio.h>
 # include <stdlib.h>
 
-# include "libft.h"
 # include "global.h"
+# include "libft.h"
+# include "mlx.h"
+# include "utils/error.h"
 
-int	print_error(char *str);
-int	exit_error(char *str);
+// init_cub3d.c
+void	init_cub3d(t_window *window);
 
-#endif // ERROR_H
+#endif // init_cub3d.h

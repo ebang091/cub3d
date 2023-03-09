@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunjungbang <eunjungbang@student.42.fr>    +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 17:37:59 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 01:12:50 by eunjungbang      ###   ########.fr       */
+/*   Updated: 2023/03/09 10:59:41 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

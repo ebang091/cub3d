@@ -25,6 +25,7 @@ MLX_DIR				:=	mlx
 SRC_DIR				:=	srcs
 SET_WINDOW_DIR		:=	set_window
 CHECK_WINDOW_DIR	:=	check_window
+INIT_CUB3D_DIR		:=	init_cub3d
 RUN_CUB3D_DIR		:=	run_cub3d
 UTILS_DIR			:=	utils
 BUILD_DIR			:=	build
@@ -38,8 +39,9 @@ DEP_DIR				:=	deps
 SRCS				:=	$(addprefix $(SRC_DIR)/, main.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(SET_WINDOW_DIR)/, set_window.c set_path_rgb_map.c utils_0.c utils_1.c)
 SRCS				+=	$(addprefix $(SRC_DIR)/$(CHECK_WINDOW_DIR)/, check_window.c check_surrounded_by_walls.c)
-SRCS				+=	$(addprefix $(SRC_DIR)/$(RUN_CUB3D_DIR)/, run_cub3d.c init_cub3d.c draw_cub3d.c key_press.c ray_casting.c)
-SRCS				+=	$(addprefix $(SRC_DIR)/$(UTILS_DIR)/, error.c get_next_line.c get_next_line_utils.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(INIT_CUB3D_DIR)/, init_cub3d.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(RUN_CUB3D_DIR)/, run_cub3d.c draw_cub3d.c key_press.c ray_casting.c)
+SRCS				+=	$(addprefix $(SRC_DIR)/$(UTILS_DIR)/, free.c error.c get_next_line.c get_next_line_utils.c)
 OBJS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(OBJ_DIR)/%.o, $(SRCS))
 DEPS				:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/$(DEP_DIR)/%.d, $(SRCS))
 
@@ -78,9 +80,9 @@ re : fclean
 
 dir_guard :
 	@mkdir -p $(addprefix $(BUILD_DIR)/$(OBJ_DIR)/, $(SET_WINDOW_DIR) \
-	$(CHECK_WINDOW_DIR) $(RUN_CUB3D_DIR) $(UTILS_DIR))
+	$(CHECK_WINDOW_DIR) $(INIT_CUB3D_DIR) $(RUN_CUB3D_DIR) $(UTILS_DIR))
 	@mkdir -p $(addprefix $(BUILD_DIR)/$(DEP_DIR)/, $(SET_WINDOW_DIR) \
-	$(CHECK_WINDOW_DIR) $(RUN_CUB3D_DIR) $(UTILS_DIR))
+	$(CHECK_WINDOW_DIR) $(INIT_CUB3D_DIR) $(RUN_CUB3D_DIR) $(UTILS_DIR))
 
 .PHONY : all clean fclean re dir_guard
 

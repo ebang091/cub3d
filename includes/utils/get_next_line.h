@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 17:38:26 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 18:24:10 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/09 11:02:11 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,4 @@ char	*get_next_line(int fd);
 void	backup_init(char **backup);
 char	*backup_join(char *backup, char *buf);
 
-#endif
+#endif // GET_NEXT_LINE_H

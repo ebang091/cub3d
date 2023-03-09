@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_path_rgb_map.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:58:52 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/07 21:39:44 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/09 16:02:27 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	set_path_rgb_map(t_window *window, int fd)
 		else if (type == INVALID || (type == NEW_LINE && window->map.height))
 		{
 			free(line);
-			return (ft_put_error("Error\nInvalid argument\n"));
+			return (print_error("Invalid argument\n"));
 		}
 		free(line);
 	}
@@ -74,21 +74,19 @@ static int	check_type(t_window *window, char *line)
 static int	set_path(t_window *window, char *line)
 {
 	char		**splited_line;
-	t_images	*images;
 	int			type;
 
-	images = &window->images;
-	type = images->type;
-	if (images->path[type] != NULL)
-		return (ft_put_error("Error\nInvalid path element\n"));
+	type = window->path_type;
+	if (window->path[type] != NULL)
+		return (print_error("Invalid path element\n"));
 	splited_line = ft_split(line, ' ');
 	if (matrix_row_len(splited_line) != 2)
 	{
 		free_matrix(splited_line);
-		return (ft_put_error("Error\nInvalid path element\n"));
+		return (print_error("Invalid path element\n"));
 	}
-	images->path[type] = ft_strdup(splited_line[1]);
-	images->path[type][ft_strlen(images->path[type]) - 1] = '\0';
+	window->path[type] = ft_strdup(splited_line[1]);
+	window->path[type][ft_strlen(window->path[type]) - 1] = '\0';
 	free_matrix(splited_line);
 	return (SUCCESS);
 }
@@ -100,7 +98,7 @@ static int	set_rgb(t_window *window, char *line)
 	int		i;
 
 	if (set_rgb_strings(window, &rgb, &rgb_strings, line) == FAILURE)
-		return (FAILURE);
+		return (print_error("Invalid rgb element\n"));
 	i = 0;
 	while (i < 3)
 	{
@@ -108,7 +106,7 @@ static int	set_rgb(t_window *window, char *line)
 		if (rgb[i] == -1)
 		{
 			free_matrix(rgb_strings);
-			return (ft_put_error("Error\nInvalid rgb element - set rgb\n"));
+			return (print_error("Invalid rgb element\n"));
 		}
 		++i;
 	}
@@ -126,7 +124,7 @@ static int	set_map(t_window *window, char *line)
 	temp_map = map->worldmap;
 	map->worldmap = (char **) malloc(sizeof(char *) * (map->height + 1));
 	if (map->worldmap == NULL)
-		exit_error("Error\nFailed memory allocation\n");
+		exit_error("Failed memory allocation\n");
 	i = 0;
 	while (i < map->height - 1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_window.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:20 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 18:23:26 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/09 15:56:09 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "global.h"
 # include "libft.h"
 # include "utils/error.h"
+# include "utils/free.h"
 # include "utils/get_next_line.h"
 
 enum e_types
@@ -40,7 +41,6 @@ int		set_path_rgb_map(t_window *window, int fd);
 bool	is_map_line(char *line);
 int		set_path_type(t_window *window, int type);
 int		matrix_row_len(char **matrix);
-int		free_matrix(char **matrix);
 bool	is_direction(char element);
 
 // utils_1.c
@@ -48,4 +48,4 @@ int		atoi_rgb(const char *str);
 int		set_rgb_strings(t_window *window, int **rgb, \
 		char ***rgb_strings, char *line);
 
-#endif
+#endif // SET_WINDOW_H

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:43:05 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 17:33:40 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/09 11:10:01 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 #include "set_window/set_window.h"
 #include "check_window/check_window.h"
+#include "init_cub3d/init_cub3d.h"
 #include "run_cub3d/run_cub3d.h"
 #include "utils/error.h"
 
@@ -30,7 +31,7 @@ int	main(int argc, char **argv)
 
 	atexit(check_leak);
 	if (argc != 2 || check_arguments(argv) == FAILURE)
-		return (ft_put_error("Error\nInvalid argument\n"));
+		return (print_error("Invalid argument\n"));
 	init_window(&window);
 	if (set_window(&window, argv[1]) == FAILURE)
 		return (FAILURE);
@@ -53,7 +54,7 @@ static int	check_arguments(char **argv)
 
 static void	init_window(t_window *window)
 {
-	ft_memset(&window->images.path, 0, sizeof(char *) * 4);
+	ft_memset(&window->path, 0, sizeof(char *) * 4);
 	window->map.height = 0;
 	window->map.width = 0;
 	window->map.worldmap = NULL;

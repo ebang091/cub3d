@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:26:16 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 15:49:21 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/09 16:04:00 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ static int	check_edge(t_map map);
 
 int	check_window(t_window *window)
 {
-	if (check_path(window) == FAILURE)
+	if (check_path(window) == FAILURE || \
+		check_rgb(window) == FAILURE || \
+		check_map(window) == FAILURE)
+	{
+		free_window(window);
 		return (FAILURE);
-	if (check_rgb(window) == FAILURE)
-		return (FAILURE);
-	if (check_map(window) == FAILURE)
-		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -35,8 +36,8 @@ static int	check_path(t_window *window)
 	i = 0;
 	while (i < 4)
 	{
-		if (window->images.path[i] == NULL)
-			return (ft_put_error("Error\nInvalid path element\n"));
+		if (window->path[i] == NULL)
+			return (print_error("Invalid path element\n"));
 		++i;
 	}
 	return (SUCCESS);
@@ -45,7 +46,7 @@ static int	check_path(t_window *window)
 static int	check_rgb(t_window *window)
 {
 	if (window->floor.r == -1 || window->ceiling.r == -1)
-		return (ft_put_error("Error\n - check\n"));
+		return (print_error("Invalid rgb element\n"));
 	return (SUCCESS);
 }
 
@@ -53,10 +54,7 @@ static int	check_map(t_window *window)
 {
 	if (check_edge(window->map) == FAILURE || \
 		check_surrounded_by_walls(window->map) == FAILURE)
-	{
-		free_matrix(window->map.worldmap);
-		return (ft_put_error("Error\nInvalid map element\n"));
-	}
+		return (print_error("Invalid map element\n"));
 	return (SUCCESS);
 }
 

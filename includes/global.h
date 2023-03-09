@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:16:56 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 18:23:54 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/09 16:04:41 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,28 @@
 
 # define SUCCESS 0
 # define FAILURE 1
-# define WINDOW_X 1920
-# define WINDOW_Y 1080
-# define TEXTURE_X 64
-# define TEXTURE_Y 64
-# define MOVE_SPEED 1
-# define ROTATE_SPEED 1
+
+enum e_speed
+{
+	MOVE_SPEED = 1,
+	ROTATE_SPEED = 1
+};
+
+enum e_size
+{
+	WINDOW_X = 1920,
+	WINDOW_Y = 1080,
+	TEXTURE_X = 64,
+	TEXTURE_Y = 64
+};
+
+enum e_directions
+{
+	EAST = 0,
+	WEST = 1,
+	SOUTH = 2,
+	NORTH = 3
+};
 
 enum e_keys
 {
@@ -35,15 +51,7 @@ enum e_keys
 	KEY_RIGHT = 124
 };
 
-enum e_directions
-{
-	EAST = 0,
-	WEST = 1,
-	SOUTH = 2,
-	NORTH = 3
-};
-
-enum e_objects
+enum e_map_objects
 {
 	WALL = 49,
 	FLOOR = 48,
@@ -60,15 +68,6 @@ typedef struct s_map
 	int		width;
 	char	**worldmap;
 }	t_map;
-
-typedef struct s_images
-{
-	void	*img[4];
-	char	*path[4];
-	int		width;
-	int		height;
-	int		type;
-}	t_images;
 
 typedef struct s_player
 {
@@ -132,14 +131,15 @@ typedef struct s_window
 	void		*mlx;
 	void		*win;
 	t_map		map;
-	t_images	images;
 	t_player	player;
 	t_rgb		ceiling;
 	t_rgb		floor;
-	int			**temp;
-	int			*texture[4];
 	t_img		img;
 	t_vec		vec;
+	int			*texture[4];
+	char		*path[4];
+	int			path_type;
+	int			**temp;
 }	t_window;
 
-#endif
+#endif // GLOBAL_H

@@ -6,7 +6,7 @@
 /*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:42:14 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/03 14:59:16 by seunghwk         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:55:22 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	set_path_type(t_window *window, int type)
 {
-	window->images.type = type;
+	window->path_type = type;
 	return (PATH);
 }
 
@@ -43,22 +43,6 @@ int	matrix_row_len(char **matrix)
 	while (matrix[len])
 		++len;
 	return (len);
-}
-
-int	free_matrix(char **matrix)
-{
-	int	i;
-
-	if (matrix == NULL)
-		return (FAILURE);
-	i = 0;
-	while (matrix[i])
-	{
-		free(matrix[i]);
-		++i;
-	}
-	free(matrix);
-	return (FAILURE);
 }
 
 bool	is_direction(char element)

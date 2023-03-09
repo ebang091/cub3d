@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebang <ebang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:18:51 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 17:44:42 by ebang            ###   ########.fr       */
+/*   Updated: 2023/03/09 10:59:28 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ static void	init_temp(t_window *window)
 
 	window->temp = malloc(sizeof(int *) * WINDOW_Y);
 	if (window->temp == NULL)
-		exit_error("Error\nFailed memory allocation\n");
+		exit_error("Failed memory allocation\n");
 	i = 0;
 	while (i < WINDOW_Y)
 	{
 		window->temp[i] = malloc(sizeof(int) * WINDOW_X);
 		if (window->temp[i] == NULL)
-			exit_error("Error\nFailed memory allocation\n");
+			exit_error("Failed memory allocation\n");
 		ft_memset(window->temp[i], 0, sizeof(int) * WINDOW_X);
 		i++;
 	}
@@ -87,10 +87,10 @@ static void	init_texture(t_window *window)
 		window->texture[direction] = \
 			malloc(sizeof(int) * TEXTURE_X * TEXTURE_Y);
 		if (window->texture[direction] == NULL)
-			exit_error("Error\nFailed memory allocation\n");
+			exit_error("Failed memory allocation\n");
 		ft_memset(window->texture[direction], 0, \
 			sizeof(int) * TEXTURE_X * TEXTURE_Y);
-		save_image_as_xpm(window, window->images.path[direction], direction);
+		save_image_as_xpm(window, window->path[direction], direction);
 		++direction;
 	}
 }
@@ -105,7 +105,7 @@ static void	save_image_as_xpm(t_window *window, char *path, int direction)
 
 	img.img_ptr = mlx_xpm_file_to_image(window->mlx, path, &width, &height);
 	if (img.img_ptr == NULL)
-		exit_error("Error\nInvalid path element\n");
+		exit_error("Invalid path element\n");
 	img.data = (unsigned int *)mlx_get_data_addr(img.img_ptr, \
 		&img.bpp, &img.size_l, &img.endian);
 	y = 0;

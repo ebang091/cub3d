@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeselee <yeselee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seunghwk <seunghwk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:16:00 by seunghwk          #+#    #+#             */
-/*   Updated: 2023/03/08 15:44:41 by yeselee          ###   ########.fr       */
+/*   Updated: 2023/03/09 11:31:41 by seunghwk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cub3d/run_cub3d.h"
 
-static void		set_ray(t_vec vec, t_ray *ray, int x);
+static void		init_ray(t_vec vec, t_ray *ray, int x);
 static double	get_wall_x(t_vec vec, t_ray *ray);
 
 void	get_ray_distance(t_vec vec, t_ray *ray, int x)
 {
-	set_ray(vec, ray, x);
+	init_ray(vec, ray, x);
 	if (ray->raydir_x < 0)
 	{
 		ray->step_x = -1;
@@ -38,18 +38,6 @@ void	get_ray_distance(t_vec vec, t_ray *ray, int x)
 		ray->step_y = 1;
 		ray->sidedist_y = (ray->map_y + 1.0 - vec.pos_y) * ray->deltadist_y;
 	}
-}
-
-static void	set_ray(t_vec vec, t_ray *ray, int x)
-{
-	ray->cam_x = 2 * x / (double)WINDOW_X - 1;
-	ray->raydir_x = vec.dir_x + vec.pln_x * ray->cam_x;
-	ray->raydir_y = vec.dir_y + vec.pln_y * ray->cam_x;
-	ray->map_x = (int) vec.pos_x;
-	ray->map_y = (int) vec.pos_y;
-	ray->deltadist_x = fabs(1 / ray->raydir_x);
-	ray->deltadist_y = fabs(1 / ray->raydir_y);
-	ray->hit = 0;
 }
 
 void	get_hit_point_using_dda(t_window *window, t_ray *ray)
@@ -97,6 +85,19 @@ void	get_draw_start_end_point(t_vec vec, t_ray *ray, t_wall *wall)
 	if (wall->draw_end >= WINDOW_Y)
 		wall->draw_end = WINDOW_Y - 1;
 }
+
+static void	init_ray(t_vec vec, t_ray *ray, int x)
+{
+	ray->cam_x = 2 * x / (double)WINDOW_X - 1;
+	ray->raydir_x = vec.dir_x + vec.pln_x * ray->cam_x;
+	ray->raydir_y = vec.dir_y + vec.pln_y * ray->cam_x;
+	ray->map_x = (int) vec.pos_x;
+	ray->map_y = (int) vec.pos_y;
+	ray->deltadist_x = fabs(1 / ray->raydir_x);
+	ray->deltadist_y = fabs(1 / ray->raydir_y);
+	ray->hit = 0;
+}
+
 
 static double	get_wall_x(t_vec vec, t_ray *ray)
 {
